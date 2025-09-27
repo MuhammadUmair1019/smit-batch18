@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forms</title>
+  </head>
+
+  <body>
+    <h2>HTML Forms</h2>
+
+    <!-- 
+      Forms are used to collect user input and send it to a server.
+      The <form> tag wraps input fields.
+      Attributes:
+        - action: where to send data
+        - method: how to send (GET or POST)
+    -->
+    <form action="./submit.html" method="get">
+      <!-- Text input -->
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" />
+      <br /><br />
+
+      <!-- Email input -->
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
+      <br /><br />
+
+      <!-- Password input -->
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" />
+      <br /><br />
+
+      <!-- Date input -->
+      <label for="date">Date of Birth:</label>
+      <input type="date" id="date" name="dob" />
+      <br /><br />
+
+      <!-- Time input -->
+      <label for="time">Preferred Time:</label>
+      <input type="time" id="time" name="time" />
+      <br /><br />
+
+      <!-- Radio buttons (only one option can be selected) -->
+      <fieldset>
+        <legend>Select your Gender</legend>
+        <label for="male">Male</label>
+        <input type="radio" name="gender" id="male" value="male" />
+
+        <label for="female">Female</label>
+        <input type="radio" name="gender" id="female" value="female" />
+
+        <label for="other">Other</label>
+        <input type="radio" name="gender" id="other" value="other" />
+      </fieldset>
+      <br />
+
+      <!-- Checkbox (multiple options can be selected) -->
+      <fieldset>
+        <legend>Select your Hobbies</legend>
+        <label
+          ><input type="checkbox" name="hobbies" value="reading" />
+          Reading</label
+        >
+        <label
+          ><input type="checkbox" name="hobbies" value="sports" /> Sports</label
+        >
+        <label
+          ><input type="checkbox" name="hobbies" value="music" /> Music</label
+        >
+      </fieldset>
+      <br />
+
+      <!-- Dropdown -->
+      <label for="country">Choose your Country:</label>
+      <select name="country" id="country">
+        <option value="" disabled selected>--Select--</option>
+        <option value="pakistan">Pakistan</option>
+        <option value="india">India</option>
+        <option value="usa">USA</option>
+        <option value="china">China</option>
+      </select>
+      <br /><br />
+
+      <!-- Textarea -->
+      <label for="message">Your Message:</label><br />
+      <textarea id="message" name="message" rows="4" cols="40"></textarea>
+      <br /><br />
+
+      <!-- File upload -->
+      <label for="file">Upload Profile Picture:</label>
+      <input type="file" id="file" name="profile" />
+      <br /><br />
+
+      <!-- Color picker -->
+      <label for="color">Pick a favorite color:</label>
+      <input type="color" id="color" name="color" />
+      <br /><br />
+
+      <!-- Hidden field -->
+      <input type="hidden" name="form_id" value="12345" />
+
+      <!-- Buttons -->
+      <input type="submit" value="Submit Form" />
+      <input type="reset" value="Reset Form" />
+    </form>
+  </body>
+</html>

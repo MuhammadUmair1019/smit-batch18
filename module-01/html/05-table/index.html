@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tables Example</title>
+</head>
+<body>
+  <h1>HTML Table with colspan and rowspan</h1>
+
+  <!-- Simple Reference Table -->
+  <table border="1" cellpadding="8" style="border-collapse: collapse; text-align:center;">
+    <thead>
+      <tr>
+        <th>HTML Element</th>
+        <th>Description</th>
+        <th>Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Headings</td>
+        <td>Used for section titles</td>
+        <td>&lt;h1&gt; to &lt;h6&gt;</td>
+      </tr>
+      <tr>
+        <td>Paragraph</td>
+        <td>Used for text blocks</td>
+        <td>&lt;p&gt;</td>
+      </tr>
+      <tr>
+        <td>Lists</td>
+        <td>Ordered, unordered, description lists</td>
+        <td>&lt;ul&gt;, &lt;ol&gt;, &lt;dl&gt;</td>
+      </tr>
+      <tr>
+        <td>Links</td>
+        <td>Create hyperlinks</td>
+        <td>&lt;a href=""&gt;</td>
+      </tr>
+      <tr>
+        <td>Images</td>
+        <td>Display images</td>
+        <td>&lt;img src=""&gt;</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <!-- colspan merges 3 columns into one -->
+        <td colspan="3">Common HTML Elements Reference</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <hr />
+
+  <!-- Example with colspan -->
+  <h2>Example: Timetable using colspan</h2>
+  <table border="1" cellpadding="8" style="border-collapse: collapse; text-align:center;">
+    <tr>
+      <th>Day</th>
+      <th colspan="2">Subjects</th> <!-- one heading spread across 2 columns -->
+    </tr>
+    <tr>
+      <td>Monday</td>
+      <td>Math</td>
+      <td>Science</td>
+    </tr>
+    <tr>
+      <td>Tuesday</td>
+      <td>English</td>
+      <td>History</td>
+    </tr>
+  </table>
+
+  <!-- Explanation:
+       colspan = "2" merges 2 columns under one header (Subjects)
+  -->
+
+  <hr />
+
+  <!-- Example with rowspan -->
+  <h2>Example: Schedule using rowspan</h2>
+  <table border="1" cellpadding="8" style="border-collapse: collapse; text-align:center;">
+    <tr>
+      <th>Day</th>
+      <th>Session</th>
+      <th>Subject</th>
+    </tr>
+    <tr>
+      <td rowspan="2">Monday</td> <!-- Monday spans 2 rows -->
+      <td>Morning</td>
+      <td>Math</td>
+    </tr>
+    <tr>
+      <td>Afternoon</td>
+      <td>Science</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Tuesday</td> <!-- Tuesday spans 2 rows -->
+      <td>Morning</td>
+      <td>English</td>
+    </tr>
+    <tr>
+      <td>Afternoon</td>
+      <td>History</td>
+    </tr>
+  </table>
+
+  <!-- Explanation:
+       rowspan = "2" merges 2 rows into one cell for the Day column
+  -->
+</body>
+</html>

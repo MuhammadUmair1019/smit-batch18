@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HTML Lists — Nested Examples</title>
+  </head>
+  <body>
+    <h1>HTML List Tags (including nested lists)</h1>
+
+    <!-- 1. Simple Unordered List -->
+    <h2>Unordered List</h2>
+    <ul>
+      <li>Apples - sweet and crispy fruit</li>
+      <li>Bananas - yellow curved fruit</li>
+      <li>Oranges - citrus fruit full of vitamin C</li>
+    </ul>
+
+    <hr />
+
+    <!-- 2. Nested Unordered Lists (multi-level) -->
+    <h2>Nested Unordered List</h2>
+    <!-- Put a <ul> or <ol> INSIDE an <li> to create a nested list -->
+    <ul>
+      <li>
+        Fruits
+        <ul>
+          <li>Apples</li>
+          <li>Bananas</li>
+          <li>
+            Citrus
+            <ul>
+              <li>Oranges</li>
+              <li>Grapefruit</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        Vegetables
+        <ul>
+          <li>
+            Leafy
+            <ul>
+              <li>Spinach</li>
+              <li>Kale</li>
+            </ul>
+          </li>
+          <li>
+            Root
+            <ul>
+              <li>Carrots</li>
+              <li>Beetroot</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <hr />
+
+    <!-- 3. Ordered List with Nested Unordered Sub-steps -->
+    <h2>Ordered List with Nested Sub-steps</h2>
+    <ol>
+      <li>
+        Prepare the batter
+        <ul>
+          <li>Sift the flour</li>
+          <li>Beat the eggs</li>
+          <li>Fold wet into dry</li>
+        </ul>
+      </li>
+      <li>Preheat the oven to 180&deg;C</li>
+      <li>
+        Bake
+        <!-- nested ordered list for sub-steps inside step 3 -->
+        <ol>
+          <li>Bake for 25 minutes</li>
+          <li>Increase heat to 200&deg;C for 5 minutes to brown</li>
+        </ol>
+      </li>
+    </ol>
+
+    <hr />
+
+    <!-- 4. Mixed nesting (ol inside ul and vice versa) -->
+    <h2>Mixed Nesting</h2>
+    <ul>
+      <li>
+        Project Plan
+        <ol>
+          <li>Research</li>
+          <li>Design</li>
+          <li>Implementation</li>
+        </ol>
+      </li>
+      <li>
+        Delivery
+        <ul>
+          <li>Packaging</li>
+          <li>Shipping</li>
+        </ul>
+      </li>
+    </ul>
+
+    <hr />
+
+    <!-- 5. Semantic Navigation Example using nested lists -->
+    <h2>Navigation Menu (semantic)</h2>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li>
+        <a href="about.html">About</a>
+        <ul>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="history.html">History</a></li>
+        </ul>
+      </li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <hr />
+
+    <!-- 6. Small notes for students -->
+    <h2>Notes & Best Practices</h2>
+    <ul>
+      <li>
+        Put the nested <code>&lt;ul&gt;</code> or <code>&lt;ol&gt;</code> INSIDE
+        the parent <code>&lt;li&gt;</code>.
+      </li>
+      <li>
+        Avoid extremely deep nesting — it becomes hard to read and confusing for
+        users and screen readers.
+      </li>
+      <li>
+        You can change marker styles with CSS (e.g.,
+        <code>list-style-type</code>), but keep default markers for clarity in
+        beginner lessons.
+      </li>
+    </ul>
+  </body>
+</html>

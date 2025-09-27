@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Class 03 - Links</title>
+  </head>
+  <body>
+    <h1>All About Links in HTML</h1>
+
+    <!-- 1. Absolute Link (Full URL) -->
+    <h2>Absolute Links</h2>
+    <p>
+      <a href="https://www.google.com" target="_blank">Go to Google</a>
+    </p>
+    <!-- Explanation:
+       - Absolute link contains the full URL (with https:// or http://).
+       - target="_blank" opens the link in a new tab.
+  -->
+
+    <hr />
+
+    <!-- 2. Relative Link (Link to file in same project) -->
+    <h2>Relative Links</h2>
+    <p>
+      <a href="about.html">Go to About Page</a>
+    </p>
+    <!-- Explanation:
+       - Relative link points to another file in the same folder/project.
+       - Example: about.html must exist in the same folder as this file.
+  -->
+
+    <hr />
+
+    <!-- 3. Link to a section within the SAME page (Internal/Bookmark) -->
+    <h2>Internal Links</h2>
+    <p>
+      <a href="#contact">Jump to Contact Section</a>
+    </p>
+
+    <!-- Some long content -->
+    <p>Lorem ipsum dolor sit amet... (scroll down)</p>
+    <p>Lorem ipsum dolor sit amet... (scroll down)</p>
+    <p>Lorem ipsum dolor sit amet... (scroll down)</p>
+
+    <!-- Contact section with id -->
+    <h3 id="contact">Contact Section</h3>
+    <p>Email: example@mail.com</p>
+    <!-- Explanation:
+       - Use id="contact" to mark a section.
+       - href="#contact" will jump directly to that section.
+  -->
+
+    <hr />
+
+    <!-- 4. Email and Telephone Links -->
+    <h2>Email & Phone Links</h2>
+    <p>
+      <a href="mailto:someone@example.com">Send Email</a><br />
+      <a href="tel:+1234567890">Call Now</a>
+    </p>
+    <!-- Explanation:
+       - mailto: opens email client.
+       - tel: opens phone dialer (useful on mobile).
+  -->
+
+    <hr />
+
+    <!-- 5. Download Link -->
+    <h2>Download Links</h2>
+    <p>
+      <a href="files/sample.pdf" download>Download Sample PDF</a>
+    </p>
+    <!-- Explanation:
+       - download attribute tells the browser to download instead of opening.
+       - The file must exist in the "files" folder.
+  -->
+
+    <hr />
+
+    <!-- 6. Image as a Link -->
+    <h2>Image Link</h2>
+    <a href="https://www.wikipedia.org" target="_blank">
+      <img
+        src="https://cdn.pixabay.com/photo/2018/08/04/11/30/draw-3583548_1280.png"
+        alt="Click to go to Wikipedia"
+        width="400"
+      />
+    </a>
+    <!-- Explanation:
+       - Wrapping <img> inside <a> makes the image clickable.
+  -->
+
+    <hr />
+
+    <!-- 7. Empty Link (Placeholder) -->
+    <h2>Empty/Placeholder Links</h2>
+    <a href="#">Click Here (does nothing)</a>
+    <!-- Explanation:
+       - href="#" is often used as a placeholder before adding real links.
+  --></body>
+</html>
