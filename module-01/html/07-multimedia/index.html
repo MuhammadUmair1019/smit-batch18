@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta tags: define encoding and viewport -->
+    <meta charset="UTF-8" />
+    <!-- Ensures all languages + emoji display correctly -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Multimedia and iframe Demo</title>
+  </head>
+  <body>
+    <h1>HTML Tags Demo: meta, audio, video, iframe</h1>
+
+    <!-- ========== AUDIO DEMO ========== -->
+    <section>
+      <h2>1. Audio Example</h2>
+      <p>
+        This audio uses <code>&lt;audio&gt;</code> with controls, loop, and
+        preload metadata.
+      </p>
+      <audio controls loop preload="metadata">
+        <!-- Multiple sources for better browser support -->
+        <source src="sample.mp3" type="audio/mpeg" />
+        <source src="sample.ogg" type="audio/ogg" />
+        Your browser does not support the audio element.
+      </audio>
+    </section>
+    <hr />
+
+    <!-- ========== VIDEO DEMO ========== -->
+    <section>
+      <h2>2. Video Example</h2>
+      <p>
+        This video uses <code>&lt;video&gt;</code> with controls, poster image,
+        and subtitles track.
+      </p>
+      <video controls width="480" poster="thumbnail.jpg">
+        <!-- Multiple sources for compatibility -->
+        <source src="sample.mp4" type="video/mp4" />
+        <source src="sample.webm" type="video/webm" />
+        <!-- Track for subtitles (WebVTT format) -->
+        <track
+          src="subtitles.vtt"
+          kind="subtitles"
+          srclang="en"
+          label="English"
+        />
+        Your browser does not support the video element.
+      </video>
+    </section>
+    <hr />
+
+    <!-- ========== IFRAME DEMO ========== -->
+    <section>
+      <h2>3. Iframe Example</h2>
+      <p>This iframe shows an embedded YouTube video.</p>
+      <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/S4JZwFdma3U?si=PAeEGk8xMwDp7ZGi"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+
+      <p>Another iframe example with Google Maps:</p>
+      <iframe
+        src="https://www.google.com/maps/embed/v1/place?q=pakistan&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"
+        width="600"
+        height="450"
+        style="border: 0"
+        allowfullscreen=""
+        loading="lazy"
+      >
+      </iframe>
+    </section>
+    <hr />
+
+    <!-- ========== SUMMARY ========== -->
+    <section>
+      <h2>Summary</h2>
+      <ul>
+        <li>
+          <strong>&lt;meta charset="UTF-8"&gt;</strong> → ensures all characters
+          display correctly.
+        </li>
+        <li>
+          <strong>&lt;audio&gt;</strong> → plays music, podcasts, sound effects.
+        </li>
+        <li>
+          <strong>&lt;video&gt;</strong> → plays movies, tutorials, with
+          controls & subtitles.
+        </li>
+        <li>
+          <strong>&lt;iframe&gt;</strong> → embeds external content like videos,
+          maps, docs.
+        </li>
+      </ul>
+    </section>
+  </body>
+</html>
