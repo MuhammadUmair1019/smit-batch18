@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Selectors</title>
+    <style>
+      * {
+        font-family: Arial, sans-serif;
+      }
+
+      h1 {
+        text-align: center;
+        color: darkblue;
+      }
+
+      section {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin: 15px;
+        border-radius: 8px;
+        background-color: #fafafa;
+      }
+
+      /* 1️⃣ BASIC SELECTORS */
+      p {
+        color: #333;
+      }
+
+      .note {
+        color: green;
+        font-weight: bold;
+      }
+
+      #unique {
+        background-color: #ffe6e6;
+        color: red;
+        padding: 4px;
+      }
+
+      /* 2️⃣ COMBINATOR SELECTORS */
+      /* Descendant Selector (space) */
+      div p {
+        color: purple;
+      }
+
+      /* Child Selector (>) */
+      div > span {
+        color: blue;
+        font-weight: bold;
+      }
+
+      /* Adjacent Sibling (+) */
+      h2 + p {
+        color: orange;
+      }
+
+      /* General Sibling (~) */
+      h3 ~ p {
+        background-color: #f0f0f0;
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🎯 CSS Class 2 – Advanced Selectors</h1>
+
+    <section>
+      <h2>1️⃣ Basic Selectors Review</h2>
+      <p>Element selector applies style to all &lt;p&gt; tags.</p>
+      <p class="note">Class selector targets .note</p>
+      <p id="unique">ID selector targets #unique</p>
+    </section>
+
+    <section>
+      <h2>2️⃣ Combinator Selectors</h2>
+
+      <div>
+        <p>This is inside a &lt;div&gt; (descendant selector)</p>
+        <span>Child span (div > span)</span>
+      </div>
+
+      <p>This paragraph follows the above heading (adjacent sibling)</p>
+
+      <h3>Heading 3</h3>
+      <p>This paragraph follows h3 (general sibling ~)</p>
+      <p>This is another paragraph after h3 (also affected by ~)</p>
+    </section>
+
+    <p style="text-align: center; font-style: italic">
+      ✨ Experiment with each selector to see how they work! ✨
+    </p>
+  </body>
+</html>

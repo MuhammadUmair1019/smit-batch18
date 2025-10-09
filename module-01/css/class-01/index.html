@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Basics</title>
+
+    <!-- Internal CSS Example -->
+    <style>
+      /* Universal Selector */
+      * {
+        font-family: Arial, sans-serif;
+      }
+
+      /* Element Selector */
+      h1 {
+        color: darkblue;
+        text-align: center;
+      }
+
+      /* Class Selector */
+      .highlight {
+        color: green;
+        font-weight: bold;
+      }
+
+      /* ID Selector */
+      #unique {
+        color: red;
+        background-color: #ffe6e6;
+        padding: 5px;
+      }
+
+      /* Grouping Selector */
+      h2,
+      p {
+        margin-left: 20px;
+      }
+
+      /* Color Examples */
+      .color-name {
+        color: blue;
+      }
+
+      .color-hex {
+        color: #ff6600; /* orange */
+      }
+
+      .color-rgb {
+        color: rgb(0, 128, 0); /* green */
+      }
+
+      .color-rgba {
+        background-color: rgba(255, 0, 0, 0.3); /* transparent red background */
+        padding: 5px;
+      }
+
+      .box {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px 20px;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🎨 CSS Class 1 – Basics</h1>
+
+    <h2>1️⃣ What is CSS?</h2>
+    <p>
+      CSS (Cascading Style Sheets) is used to style HTML elements — change
+      colors, fonts, layout, etc.
+    </p>
+    <p>
+      <strong>Example:</strong> Without CSS, the text looks plain. With CSS, you
+      can make it beautiful!
+    </p>
+
+    <div class="box">
+      <p>This is <span class="highlight">styled</span> text using CSS.</p>
+    </div>
+
+    <hr />
+
+    <h2>2️⃣ Ways to Apply CSS</h2>
+
+    <h3>✅ Inline CSS</h3>
+    <p style="color: blue; font-size: 18px">
+      This paragraph uses <strong>inline CSS</strong>.
+    </p>
+
+    <h3>✅ Internal CSS</h3>
+    <p>
+      This paragraph is styled using <strong>internal CSS</strong> written
+      inside the &lt;style&gt; tag.
+    </p>
+
+    <h3>✅ External CSS</h3>
+    <p>
+      You can also write styles in a separate <code>style.css</code> file and
+      link it using the <code>&lt;link&gt;</code> tag.
+    </p>
+
+    <hr />
+
+    <h2>3️⃣ CSS Colors</h2>
+    <p class="color-name">Color by name: blue</p>
+    <p class="color-hex">Color by HEX: #ff6600</p>
+    <p class="color-rgb">Color by RGB: rgb(0, 128, 0)</p>
+    <p class="color-rgba">Color by RGBA: transparent red background</p>
+
+    <hr />
+
+    <h2>4️⃣ CSS Selectors</h2>
+
+    <div class="box">
+      <p>
+        <strong>Universal Selector:</strong> applies to all elements using
+        <code>*</code>
+      </p>
+      <p>
+        <strong>Element Selector:</strong> targets an element name like
+        <code>p</code>, <code>h1</code>
+      </p>
+      <p class="highlight">
+        <strong>Class Selector:</strong> uses a dot (<code>.</code>) — example:
+        <code>.highlight</code>
+      </p>
+      <p id="unique">
+        <strong>ID Selector:</strong> uses a hash (<code>#</code>) — example:
+        <code>#unique</code>
+      </p>
+      <p>
+        <strong>Grouping Selector:</strong> group multiple elements like
+        <code>h1, h2, p</code>
+      </p>
+    </div>
+
+    <hr />
+
+    <h2>🧪 Practice Exercise</h2>
+    <p>Try editing this file and experiment with:</p>
+    <ul>
+      <li>Change colors using RGB or HEX.</li>
+      <li>Add new classes and apply them to elements.</li>
+      <li>Use inline, internal, and external CSS to see differences.</li>
+    </ul>
+
+    <hr />
+
+    <h2>📚 Summary Table</h2>
+    <table
+      border="1"
+      cellpadding="10"
+      style="border-collapse: collapse; margin: 20px"
+    >
+      <tr style="background-color: #f0f0f0">
+        <th>Topic</th>
+        <th>Description</th>
+        <th>Example</th>
+      </tr>
+      <tr>
+        <td>Inline CSS</td>
+        <td>CSS inside HTML tag</td>
+        <td><code>&lt;p style="color:red"&gt;</code></td>
+      </tr>
+      <tr>
+        <td>Internal CSS</td>
+        <td>CSS inside &lt;style&gt; tag</td>
+        <td><code>&lt;style&gt;p{color:red;}&lt;/style&gt;</code></td>
+      </tr>
+      <tr>
+        <td>External CSS</td>
+        <td>CSS in separate file</td>
+        <td><code>&lt;link rel="stylesheet"&gt;</code></td>
+      </tr>
+      <tr>
+        <td>Color Types</td>
+        <td>name, hex, rgb, rgba</td>
+        <td><code>color: blue; color: #ff0000;</code></td>
+      </tr>
+      <tr>
+        <td>Selectors</td>
+        <td>element, class, id, universal</td>
+        <td><code>p{}, .class{}, #id{}, *{}</code></td>
+      </tr>
+    </table>
+
+    <p style="text-align: center; font-style: italic">
+      ✨ Practice and have fun styling! ✨
+    </p>
+  </body>
+</html>
