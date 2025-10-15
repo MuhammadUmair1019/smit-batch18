@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Box Model</title>
+    <style>
+      /* Basic page styling for readability */
+      body {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial,
+          sans-serif;
+        line-height: 1.5;
+        padding: 24px;
+      }
+      h1 {
+        margin-bottom: 8px;
+      }
+      h2 {
+        margin-top: 28px;
+        margin-bottom: 8px;
+      }
+      p {
+        margin: 8px 0 12px;
+      }
+      code {
+        background: #f5f5f7;
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+
+      /* Visual helpers */
+      .note {
+        color: #555;
+        font-size: 0.95rem;
+      }
+      .row {
+        /* non-flex layout: rows will wrap naturally */
+      }
+      .col {
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 16px;
+        margin-bottom: 16px;
+      }
+
+      /* Box model demo base */
+      .demo-box {
+        background: #f0f7ff;
+        border: 4px solid #0a66c2;
+        padding: 16px;
+        margin: 16px;
+        color: #0a2233;
+      }
+      .demo-box .inner {
+        background: #e8f3ff;
+        border: 2px dashed #0a66c2;
+        padding: 8px;
+      }
+      .legend {
+        font-size: 0.9rem;
+        color: #0a2233;
+        margin-top: 6px;
+      }
+
+      /* Padding demo */
+      .padding-none {
+        padding: 0;
+      }
+      .padding-large {
+        padding: 32px;
+      }
+
+      /* Margin demo (use outlines so margins are visible) */
+      .margin-outline {
+        outline: 2px dashed #888;
+      }
+      .margin-small {
+        margin: 8px;
+      }
+      .margin-large {
+        margin: 32px;
+      }
+
+      /* Border demo */
+      .border-solid {
+        border: 4px solid #0a66c2;
+      }
+      .border-dashed {
+        border: 4px dashed #f39c12;
+      }
+      .border-double {
+        border: 6px double #27ae60;
+      }
+      .border-radius {
+        border-radius: 12px;
+      }
+
+      /* Width/height demo */
+      .fixed-size {
+        width: 220px;
+        height: 90px;
+      }
+      .auto-size {
+        width: auto;
+      }
+
+      /* Display demo */
+      .chip {
+        display: inline-block;
+        background: #eef3f7;
+        padding: 6px 10px;
+        border: 1px solid #ccd6dd;
+        border-radius: 999px;
+        margin: 4px;
+      }
+      .inline-sample span {
+        background: #ffd5d5;
+        border: 1px solid #e66;
+        margin: 4px;
+      }
+      .block-sample div {
+        background: #d5ffd7;
+        border: 1px solid #5a5;
+        margin: 4px 0;
+      }
+
+      /* box-sizing demo: two visually identical boxes with same declared width */
+      .bx-row {
+        /* non-flex container */
+      }
+      .bx {
+        width: 220px;
+        padding: 20px;
+        border: 6px solid #0a66c2;
+        background: #f0f7ff;
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 16px;
+        margin-bottom: 16px;
+      }
+      .content-box {
+        box-sizing: content-box;
+      }
+      .border-box {
+        box-sizing: border-box;
+      }
+      .bx .measure {
+        font-size: 0.9rem;
+        color: #333;
+      }
+
+      /* Helper to visualize content area explicitly */
+      .content-area {
+        background: #fff;
+        border: 1px dashed #bbb;
+        padding: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS Box Model</h1>
+    <p class="note">
+      Every element on a page is a rectangular box with four areas:
+      <strong>content</strong> → <strong>padding</strong> →
+      <strong>border</strong> → <strong>margin</strong>.
+    </p>
+
+    <h2>1) What is the Box Model?</h2>
+    <div class="demo-box">
+      <div class="inner">
+        <div class="content-area">Content area (text, images, etc.)</div>
+      </div>
+      <div class="legend">
+        Blue solid = border, light blue = padding, white dashed = content.
+        Margin is the space outside this blue border.
+      </div>
+    </div>
+
+    <h2>2) Padding</h2>
+    <p>
+      Padding is the space <em>inside</em> the border and around the content. It
+      increases the background-colored area.
+    </p>
+    <div class="row">
+      <div class="col demo-box padding-none">No padding</div>
+      <div class="col demo-box padding-large">Large padding (32px)</div>
+    </div>
+
+    <h2>3) Margin</h2>
+    <p>
+      Margin is the space <em>outside</em> the border. It creates distance
+      between elements.
+    </p>
+    <div class="margin-outline">
+      <div class="demo-box margin-small">Small margin (8px)</div>
+      <div class="demo-box margin-large">Large margin (32px)</div>
+    </div>
+
+    <h2>4) Border</h2>
+    <p>
+      The border wraps the padding and content. It can have style, width, color,
+      and radius.
+    </p>
+    <div class="row">
+      <div class="col demo-box border-solid">Solid border</div>
+      <div class="col demo-box border-dashed">Dashed border</div>
+      <div class="col demo-box border-double">Double border</div>
+      <div class="col demo-box border-solid border-radius">Rounded corners</div>
+    </div>
+
+    <h2>5) Width and Height</h2>
+    <p>
+      Width/height apply to the <em>content box</em> by default. Padding and
+      border add on top of these values (unless using
+      <code>box-sizing: border-box</code>).
+    </p>
+    <div class="row">
+      <div class="col demo-box fixed-size">Fixed size content (220×90)</div>
+      <div class="col demo-box auto-size">Auto width grows with content</div>
+    </div>
+
+    <h2>6) Display</h2>
+    <p><code>display</code> controls how an element participates in layout.</p>
+    <div class="block-sample">
+      <div>Block element (takes full width)</div>
+      <div>Another block element</div>
+    </div>
+    <div class="inline-sample">
+      <span>inline</span><span>elements</span><span>sit</span><span>on</span
+      ><span>one</span><span>line</span>
+    </div>
+    <div>
+      <span class="chip">inline-block chip</span>
+      <span class="chip">respects width/height</span>
+    </div>
+
+    <h2>7) Box Sizing</h2>
+    <p>
+      With <code>content-box</code> (default), declared width excludes padding
+      and border. With <code>border-box</code>, declared width includes padding
+      and border.
+    </p>
+    <div class="bx-row">
+      <div class="bx content-box">
+        <div class="measure">
+          <strong>content-box</strong> width: 220px<br />(total rendered width =
+          220 + padding + border)
+        </div>
+      </div>
+      <div class="bx border-box">
+        <div class="measure">
+          <strong>border-box</strong> width: 220px<br />(total rendered width =
+          exactly 220px)
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
