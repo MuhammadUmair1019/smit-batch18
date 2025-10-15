@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Attribute Selectors and CSS Specificity</title>
+  </head>
+  <style>
+    * {
+      font-family: Arial, sans-serif;
+    }
+
+    /* 3️⃣ ATTRIBUTE SELECTORS */
+    a[href] {
+      color: darkgreen;
+    }
+
+    /* exact value */
+    a[href = 'https://google.com']
+    {
+      color: blue;
+    }
+
+    /* starts with */
+    a[href^="https"] {
+      color: green;
+    }
+
+    /* ends with */
+    a[href$="com"] {
+      color: red;
+    }
+
+    /* contains */
+    a[href*="example"] {
+      color: purple;
+    }
+
+    /* contains with space */
+    a[href~="google"] {
+      color: yellow;
+    }
+
+    /* starts with | */
+    a[href |="https"] {
+      color: orange;
+    }
+
+    /* exact value */
+    a[target="_blank"] {
+      color: crimson;
+    }
+
+    input[type="text"] {
+      border: 2px solid #007bff;
+      padding: 5px;
+    }
+
+    input[type="password"] {
+      border: 2px solid #ff6600;
+      padding: 5px;
+    }
+
+    /* 4️⃣ CSS Specificity */
+    .specificity {
+      border: 1px solid #ddd;
+    }
+
+    .specificity h2 {
+      color: darkblue;
+    }
+
+    .specificity .highlighted {
+      color: aqua;
+    }
+
+    /* .favourite {
+        color: brown;
+    } */
+
+    .specificity #highlighted {
+      color: bisque;
+    }
+
+    .specificity #container ul.sites li {
+      background-color: aqua;
+      color: green;
+    }
+
+    .specificity .favourite {
+      color: brown;
+    }
+
+    /* calculate specificity */
+    /* inline style attr > id selector > class selector > element selector */
+    /* 1000 > 100 > 10 > 1 */
+  </style>
+  <body>
+    <section class="attribute-selectors">
+      <h2>3️⃣ Attribute Selectors</h2>
+
+      <a href="https://example.com">Normal Link (href)</a><br />
+      <a href="https://google.com" target="_blank"
+        >Opens in New Tab (target="_blank")</a
+      >
+      <a href="https://google.uk">Go to Google UK</a>
+
+      <br /><br />
+
+      <label>Username:</label>
+      <input type="text" placeholder="Enter your name" /><br /><br />
+
+      <label>Password:</label>
+      <input type="password" placeholder="Enter password" />
+    </section>
+
+    <section class="specificity">
+      <h2>4️⃣ CSS Specificity</h2>
+
+      <div>
+        <p class="highlighted" id="highlighted">
+          This paragraph has a class applied to it.
+        </p>
+        <p>This is a simple paragraph.</p>
+      </div>
+
+      <div id="container">
+        <ul class="sites">
+          <li>Google</li>
+          <li class="favourite">Youtube</li>
+          <li>Linkedin</li>
+          <li>Github</li>
+          <li>Reddit</li>
+          <li>X</li>
+        </ul>
+      </div>
+    </section>
+  </body>
+</html>
