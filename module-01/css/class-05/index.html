@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pseudo-classes and Pseudo-elements</title>
+    <style>
+        /* Base page styles */
+        body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; line-height: 1.5; padding: 24px; }
+        h1 { margin-bottom: 8px; }
+        h2 { margin-top: 28px; margin-bottom: 8px; }
+        p { margin: 8px 0 12px; }
+        code { background: #f5f5f7; padding: 2px 6px; border-radius: 4px; }
+        .note { color: #555; font-size: 0.95rem; }
+
+        /* Link state demo */
+        .links a { display: inline-block; margin: 4px 8px 4px 0; text-decoration: none; padding: 6px 10px; border: 1px solid #ccd6dd; border-radius: 6px; }
+        .links a:link { color: #0a66c2; }
+        .links a:visited { color: red; }
+        .links a:hover { background: #eef6ff; }
+        .links a:active { color: black; }
+        .links a:focus { outline: 2px solid #0a66c2; outline-offset: 2px; }
+
+        /* Form interaction pseudo-classes */
+        .btn { display: inline-block; padding: 8px 14px; border: 1px solid #0a66c2; color: #0a2233; background: #f0f7ff; border-radius: 6px; cursor: pointer; }
+        .btn:hover { background: #e3f0ff; }
+        .btn:active { background: #d6e8ff; }
+        .btn:disabled { background: #eee; color: #888; border-color: #ddd; cursor: not-allowed; }
+        .field { padding: 8px 10px; border: 1px solid #ccd6dd; border-radius: 6px; }
+        .field:focus { outline: 2px solid #0a66c2; outline-offset: 2px; }
+
+        /* :not and structural pseudo-classes */
+        .tag { display: inline-block; padding: 4px 8px; border: 1px solid #ccd6dd; border-radius: 999px; margin: 4px 8px 4px 0; background: #f7fafc; }
+        .tag.highlight { background: #fff3cd; border-color: #ffec99; }
+        .tag:not(.highlight) { color: #0a2233; }
+        .striped li { padding: 6px 10px; border: 1px solid #eee; margin: 4px 0; }
+        .striped li:nth-child(odd) { background: #fafafa; }
+        .striped li:nth-child(even) { background: #f0f7ff; }
+        .striped li:first-child { border-top-left-radius: 6px; border-top-right-radius: 6px; }
+        .striped li:last-child { border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; }
+
+        /* Pseudo-elements */
+        .badge-title { position: relative; display: inline-block; padding-right: 10px; }
+        .badge-title::after { content: "NEW"; font-size: 0.7rem; color: #0a2233; background: #ffecb3; border: 1px solid #ffd666; border-radius: 4px; padding: 2px 6px; margin-left: 8px; }
+        .decor-title::before { content: "// "; color: #888; }
+        .decor-title::after { content: " //"; color: #888; }
+        .first-letter p::first-letter { font-size: 200%; font-weight: 700; float: left; line-height: 1; padding-right: 6px; color: #0a66c2; }
+        .first-line p::first-line { text-transform: uppercase; letter-spacing: 0.04em; }
+        ::selection { background: #cde7ff; color: #0a2233; }
+        .bullet-demo ul { list-style: disc inside; }
+        .bullet-demo li::marker { color: #0a66c2; font-weight: 700; }
+        .placeholder-demo input::placeholder { color: #888; }
+    </style>
+</head>
+<body>
+    <h1>Pseudo-classes and Pseudo-elements</h1>
+    <p class="note">This page demonstrates common CSS pseudo-classes (state-based selectors) and pseudo-elements (virtual elements like parts of text).</p>
+
+    <h2>1) Link States: <code>:link</code>, <code>:visited</code>, <code>:hover</code>, <code>:active</code>, <code>:focus</code></h2>
+    <div class="links">
+        <a href="https://www.example.com/one" target="_blank">Example One</a>
+        <a href="https://www.example.com/two" target="_blank">Example Two</a>
+        <a href="https://www.google.com" target="_blank">Google</a>
+        <a href="https://www.wikipedia.org" target="_blank">Wikipedia</a>
+    </div>
+
+    <h2>2) Interaction: <code>:hover</code>, <code>:active</code>, <code>:focus</code>, <code>:disabled</code></h2>
+    <p>
+        <button class="btn">Normal Button</button>
+        <button class="btn" disabled>Disabled Button</button>
+    </p>
+    <p>
+        <input class="field" type="text" placeholder="Focus me to see outline" />
+    </p>
+
+    <h2>3) Negation and Structure: <code>:not()</code>, <code>:nth-child()</code>, <code>:first-child</code>, <code>:last-child</code></h2>
+    <p>
+        <span class="tag">Tag</span>
+        <span class="tag highlight">Highlighted</span>
+        <span class="tag">Another</span>
+        <span class="tag">More</span>
+    </p>
+    <ul class="striped">
+        <li>Row 1</li>
+        <li>Row 2</li>
+        <li>Row 3</li>
+        <li>Row 4</li>
+        <li>Row 5</li>
+    </ul>
+
+    <h2 class="badge-title">4) Pseudo-elements: <code>::before</code> and <code>::after</code></h2>
+    <p class="decor-title">Decorated heading using ::before and ::after</p>
+
+    <h2>5) <code>::first-letter</code> and <code>::first-line</code></h2>
+    <div class="first-letter">
+        <p>
+            Drop caps are a classic layout effect. The first letter of this
+            paragraph is styled bigger using <code>::first-letter</code>.
+        </p>
+    </div>
+    <div class="first-line">
+        <p>
+            Only the first line of this paragraph is transformed to uppercase to
+            demonstrate <code>::first-line</code>. Resize the window or change zoom
+            to see where the first line ends.
+        </p>
+    </div>
+
+    <h2>6) <code>::selection</code>, <code>::marker</code>, and <code>::placeholder</code></h2>
+    <p>Try selecting this text with your mouse to see custom selection color.</p>
+    <div class="bullet-demo">
+        <ul>
+            <li>Custom blue bullet via <code>::marker</code></li>
+            <li>Second item</li>
+            <li>Third item</li>
+        </ul>
+    </div>
+    <div class="placeholder-demo">
+        <input class="field" type="text" placeholder="Custom placeholder color" />
+    </div>
+</body>
+</html>
