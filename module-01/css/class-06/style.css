@@ -1,0 +1,121 @@
+/* ============================= */
+/* CSS Properties                */
+/* ============================= */
+
+.box1 {
+  border: 1px solid red; /* Adds a red border around the box */
+
+  /* visibility: hidden; */  /* Hides the element but keeps its space */
+  /* display: none; */       /* Removes the element completely from layout */
+
+  /* line-height: 3; */      /* Controls vertical spacing between lines */
+  /* letter-spacing: 5px; */ /* Adds space between letters */
+  /* word-spacing: 20px; */  /* Adds space between words */
+
+  /* text-transform: uppercase; */ /* Converts all text to uppercase */
+  /* text-transform: lowercase; */ /* Converts all text to lowercase */
+  /* text-transform: capitalize; *//* Capitalizes first letter of each word */
+
+  /* text-decoration: line-through underline red; */
+  /* Adds a red underline and strikethrough to the text */
+}
+
+.box2 {
+  border: 1px solid green; /* Adds a green border around the box */
+}
+
+h3 {
+  /* text-decoration: underline; */           /* Underlines the heading */
+  /* text-decoration: line-through solid red; *//* Strikes through heading in red */
+}
+
+/* ============================= */
+/* Pseudo-elements               */
+/* ============================= */
+
+/*
+p::first-line {
+  color: red; 
+  Explanation: Changes color of the *first line* of text in a paragraph.
+}
+
+p::first-letter {
+  font-size: 32px; 
+  Explanation: Makes the *first letter* of each paragraph larger (like a drop cap).
+}
+
+h3::before {
+  content: "//"; 
+  Explanation: Adds custom content *before* every <h3> heading.
+}
+
+h3::after {
+  content: " //"; 
+  Explanation: Adds custom content *after* every <h3> heading.
+}
+
+::marker {
+  color: green; 
+  Explanation: Changes the color of list item markers (like bullet points).
+}
+
+::selection {
+  color: red; 
+  background-color: cyan;
+  Explanation: Changes color of text when user *selects* it.
+}
+*/
+
+/* ============================= */
+/* Pseudo-classes                */
+/* ============================= */
+
+/*
+.header1 {
+  border: 2px dotted green;
+  margin-bottom: 10px;
+}
+
+.header2 {
+  border: 2px dotted red;
+}
+
+.container {
+  border: 2px dotted blue;
+}
+
+li:nth-of-type(2n + 1) {
+  color: red;
+  Explanation: Targets every *odd* <li> item in a list.
+}
+
+p:nth-child(3) {
+  color: red;
+  Explanation: Targets the *third* child paragraph of its parent.
+}
+
+p:nth-of-type(2) {
+  color: red;
+  Explanation: Targets the *second paragraph* among all <p> siblings.
+}
+
+p:first-child {
+  color: red;
+  Explanation: Styles a paragraph if it's the *first child* of its parent.
+}
+
+p:first-of-type {
+  color: red;
+  Explanation: Styles the *first paragraph element* within its parent.
+}
+
+p:last-child {
+  color: blueviolet;
+  Explanation: Styles a paragraph if it’s the *last child* of its parent.
+}
+
+p:last-of-type {
+  color: cyan;
+  Explanation: Styles the *last paragraph* among sibling <p> tags.
+}
+*/
