@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Units and Floats - Lecture Examples</title>
+    <style>
+      /* Reset and base styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Arial', sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f5f5f5;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      h1 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 30px;
+        font-size: 2.5rem;
+      }
+
+      h2 {
+        color: #34495e;
+        margin: 30px 0 15px 0;
+        padding: 10px;
+        background-color: #ecf0f1;
+        border-left: 4px solid #3498db;
+      }
+
+      h3 {
+        color: #2980b9;
+        margin: 20px 0 10px 0;
+      }
+
+      .section {
+        background-color: white;
+        margin: 20px 0;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+
+      .example-box {
+        border: 2px solid #3498db;
+        margin: 10px 0;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+      }
+
+      .code {
+        background-color: #2c3e50;
+        color: #ecf0f1;
+        padding: 10px;
+        border-radius: 5px;
+        font-family: 'Courier New', monospace;
+        margin: 10px 0;
+        overflow-x: auto;
+      }
+
+      /* CSS Units Examples */
+      .units-demo {
+        margin: 15px 0;
+      }
+      
+      .units-demo > div {
+        display: inline-block;
+        margin: 5px;
+        vertical-align: top;
+      }
+
+      .unit-px {
+        width: 100px;
+        height: 50px;
+        background-color: #e74c3c;
+        text-align: center;
+        line-height: 50px;
+        color: white;
+        font-weight: bold;
+      }
+
+      .unit-em {
+        width: 5em;
+        height: 2.5em;
+        background-color: #f39c12;
+        text-align: center;
+        line-height: 2.5em;
+        color: white;
+        font-weight: bold;
+      }
+
+      .unit-rem {
+        width: 5rem;
+        height: 2.5rem;
+        background-color: #27ae60;
+        text-align: center;
+        line-height: 2.5rem;
+        color: white;
+        font-weight: bold;
+      }
+
+      .unit-percent {
+        width: 20%;
+        height: 60px;
+        background-color: #9b59b6;
+        text-align: center;
+        line-height: 60px;
+        color: white;
+        font-weight: bold;
+      }
+
+      .unit-vw {
+        width: 20vw;
+        height: 10vw;
+        background-color: #1abc9c;
+        text-align: center;
+        line-height: 10vw;
+        color: white;
+        font-weight: bold;
+      }
+
+      .unit-vh {
+        width: 200px;
+        height: 10vh;
+        background-color: #34495e;
+        text-align: center;
+        line-height: 10vh;
+        color: white;
+        font-weight: bold;
+      }
+
+      /* Float Examples */
+      .float-container {
+        border: 2px solid #3498db;
+        padding: 10px;
+        margin: 15px 0;
+        background-color: #f8f9fa;
+      }
+
+      .float-left {
+        float: left;
+        width: 150px;
+        height: 100px;
+        background-color: #e74c3c;
+        margin: 10px;
+        text-align: center;
+        line-height: 100px;
+        color: white;
+        font-weight: bold;
+      }
+
+      .float-right {
+        float: right;
+        width: 150px;
+        height: 100px;
+        background-color: #27ae60;
+        margin: 10px;
+        text-align: center;
+        line-height: 100px;
+        color: white;
+        font-weight: bold;
+      }
+
+      .float-none {
+        float: none;
+        width: 150px;
+        height: 100px;
+        background-color: #f39c12;
+        margin: 10px;
+        text-align: center;
+        line-height: 100px;
+        color: white;
+        font-weight: bold;
+      }
+
+      .clearfix::after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      .text-content {
+        background-color: #ecf0f1;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+      }
+
+      /* Layout Examples */
+      .layout-example {
+        border: 2px solid #2c3e50;
+        margin: 15px 0;
+        padding: 10px;
+        background-color: #f8f9fa;
+      }
+
+      .header {
+        background-color: #3498db;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .sidebar {
+        float: left;
+        width: 25%;
+        background-color: #95a5a6;
+        color: white;
+        padding: 1rem;
+        min-height: 200px;
+      }
+
+      .main-content {
+        float: right;
+        width: 73%;
+        background-color: #ecf0f1;
+        padding: 1rem;
+        min-height: 200px;
+      }
+
+      .footer {
+        clear: both;
+        background-color: #2c3e50;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+      }
+
+      /* Responsive Units Example */
+      .responsive-container {
+        width: 80vw;
+        height: 40vh;
+        background-color: #9b59b6;
+        margin: 20px auto;
+        text-align: center;
+        line-height: 40vh;
+        color: white;
+        font-size: 2rem;
+        font-weight: bold;
+        border-radius: 10px;
+      }
+
+      /* Comparison Table */
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+
+      .comparison-table th,
+      .comparison-table td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+      }
+
+      .comparison-table th {
+        background-color: #3498db;
+        color: white;
+      }
+
+      .comparison-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      .note {
+        background-color: #fff3cd;
+        border: 1px solid #ffeaa7;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+        border-left: 4px solid #f39c12;
+      }
+
+      .warning {
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+        border-left: 4px solid #e74c3c;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>CSS Units and Floats</h1>
+      
+      <!-- CSS Units Section -->
+      <div class="section">
+        <h2>1. CSS Units</h2>
+        <p>CSS units are used to specify the size of various properties. Understanding different units is crucial for responsive design.</p>
+        
+        <h3>Absolute Units</h3>
+        <div class="example-box">
+          <h4>Pixels (px)</h4>
+          <p>Fixed size unit - 1px = 1/96th of an inch</p>
+          <div class="code">
+            .box { width: 100px; height: 50px; }
+          </div>
+          <div class="units-demo">
+            <div class="unit-px">100px</div>
+          </div>
+        </div>
+
+        <h3>Relative Units</h3>
+        <div class="example-box">
+          <h4>Em (em)</h4>
+          <p>Relative to the font-size of the element (or parent element)</p>
+          <div class="code">
+            .box { width: 5em; height: 2.5em; }
+          </div>
+          <div class="units-demo">
+            <div class="unit-em">5em</div>
+          </div>
+        </div>
+
+        <div class="example-box">
+          <h4>Rem (rem)</h4>
+          <p>Relative to the font-size of the root element (html)</p>
+          <div class="code">
+            .box { width: 5rem; height: 2.5rem; }
+          </div>
+          <div class="units-demo">
+            <div class="unit-rem">5rem</div>
+          </div>
+        </div>
+
+        <div class="example-box">
+          <h4>Percentage (%)</h4>
+          <p>Relative to the parent element's size</p>
+          <div class="code">
+            .box { width: 20%; height: 60px; }
+          </div>
+          <div class="units-demo">
+            <div class="unit-percent">20%</div>
+          </div>
+        </div>
+
+        <h3>Viewport Units</h3>
+        <div class="example-box">
+          <h4>Viewport Width (vw)</h4>
+          <p>1vw = 1% of viewport width</p>
+          <div class="code">
+            .box { width: 20vw; height: 10vw; }
+          </div>
+          <div class="units-demo">
+            <div class="unit-vw">20vw</div>
+          </div>
+        </div>
+
+        <div class="example-box">
+          <h4>Viewport Height (vh)</h4>
+          <p>1vh = 1% of viewport height</p>
+          <div class="code">
+            .box { width: 200px; height: 10vh; }
+          </div>
+          <div class="units-demo">
+            <div class="unit-vh">10vh</div>
+          </div>
+        </div>
+
+        <div class="responsive-container">
+          Responsive Box (80vw × 40vh)
+        </div>
+
+        <h3>Units Comparison Table</h3>
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Unit</th>
+              <th>Type</th>
+              <th>Relative To</th>
+              <th>Best For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>px</td>
+              <td>Absolute</td>
+              <td>Screen pixels</td>
+              <td>Borders, small elements</td>
+            </tr>
+            <tr>
+              <td>em</td>
+              <td>Relative</td>
+              <td>Element's font-size</td>
+              <td>Typography, spacing</td>
+            </tr>
+            <tr>
+              <td>rem</td>
+              <td>Relative</td>
+              <td>Root font-size</td>
+              <td>Typography, consistent sizing</td>
+            </tr>
+            <tr>
+              <td>%</td>
+              <td>Relative</td>
+              <td>Parent element</td>
+              <td>Layout, responsive design</td>
+            </tr>
+            <tr>
+              <td>vw/vh</td>
+              <td>Relative</td>
+              <td>Viewport size</td>
+              <td>Full-screen layouts</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- CSS Float Section -->
+      <div class="section">
+        <h2>2. CSS Float Property</h2>
+        <p>The float property is used to position elements horizontally and allow other elements to wrap around them.</p>
+
+        <h3>Float Values</h3>
+        
+        <div class="example-box">
+          <h4>Float: Left</h4>
+          <div class="code">
+            .box { float: left; }
+          </div>
+          <div class="float-container clearfix">
+            <div class="float-left">Float Left</div>
+            <div class="text-content">
+              This text wraps around the floated element. The floated element is positioned to the left, and the text flows around it naturally. This is useful for creating layouts with images or sidebars.
+            </div>
+          </div>
+        </div>
+
+        <div class="example-box">
+          <h4>Float: Right</h4>
+          <div class="code">
+            .box { float: right; }
+          </div>
+          <div class="float-container clearfix">
+            <div class="float-right">Float Right</div>
+            <div class="text-content">
+              This text wraps around the floated element. The floated element is positioned to the right, and the text flows around it naturally. Notice how the text flows around the right side of the floated element.
+            </div>
+          </div>
+        </div>
+
+        <div class="example-box">
+          <h4>Float: None (Default)</h4>
+          <div class="code">
+            .box { float: none; }
+          </div>
+          <div class="float-container">
+            <div class="float-none">No Float</div>
+            <div class="text-content">
+              This element is not floated, so it behaves as a normal block element. The text appears below it rather than wrapping around it.
+            </div>
+          </div>
+        </div>
+
+        <h3>Clearfix Technique</h3>
+        <div class="note">
+          <strong>Important:</strong> When using floats, parent containers may collapse because floated elements are removed from the normal document flow. Use the clearfix technique to prevent this.
+        </div>
+
+        <div class="code">
+          .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+          }
+        </div>
+
+        <h3>Multiple Floated Elements</h3>
+        <div class="example-box">
+          <div class="code">
+            .box1 { float: left; }
+            .box2 { float: left; }
+            .box3 { float: right; }
+          </div>
+          <div class="float-container clearfix">
+            <div class="float-left">Box 1</div>
+            <div class="float-left">Box 2</div>
+            <div class="float-right">Box 3</div>
+            <div class="text-content">
+              Multiple elements can be floated. Left-floated elements stack horizontally from left to right, while right-floated elements stack from right to left.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Layout Example -->
+      <div class="section">
+        <h2>3. Practical Layout Example</h2>
+        <p>Combining CSS units and floats to create a responsive layout:</p>
+
+        <div class="layout-example clearfix">
+          <div class="header">Header (100% width)</div>
+          <div class="sidebar">Sidebar (25% width)</div>
+          <div class="main-content">Main Content (73% width)</div>
+          <div class="footer">Footer (100% width)</div>
+        </div>
+
+        <div class="code">
+          .sidebar {
+            float: left;
+            width: 25%;
+            padding: 1rem;
+          }
+          
+          .main-content {
+            float: right;
+            width: 73%;
+            padding: 1rem;
+          }
+          
+          .footer {
+            clear: both;
+            padding: 1rem;
+          }
+        </div>
+      </div>
+
+      <!-- Best Practices -->
+      <div class="section">
+        <h2>4. Best Practices</h2>
+        
+        <h3>CSS Units Best Practices</h3>
+        <ul>
+          <li><strong>Use rem for typography:</strong> Provides consistent scaling across devices</li>
+          <li><strong>Use em for component-specific sizing:</strong> Scales relative to component's font-size</li>
+          <li><strong>Use % for layout:</strong> Creates flexible, responsive layouts</li>
+          <li><strong>Use vw/vh for full-screen elements:</strong> Perfect for hero sections and overlays</li>
+          <li><strong>Use px sparingly:</strong> Only for borders, shadows, and small decorative elements</li>
+        </ul>
+
+        <h3>Float Best Practices</h3>
+        <ul>
+          <li><strong>Always use clearfix:</strong> Prevents parent container collapse</li>
+          <li><strong>Consider modern alternatives:</strong> Flexbox and Grid are often better choices</li>
+          <li><strong>Be mindful of stacking:</strong> Floated elements stack horizontally</li>
+          <li><strong>Use clear property:</strong> Prevents elements from wrapping around floats</li>
+        </ul>
+
+        <div class="warning">
+          <strong>Warning:</strong> While floats are still useful for text wrapping around images, consider using Flexbox or CSS Grid for modern layout needs. They provide more predictable and flexible layout options.
+        </div>
+      </div>
+
+      <!-- Modern Alternatives -->
+      <div class="section">
+        <h2>5. Modern Alternatives to Float</h2>
+        <p>While floats are still useful, modern CSS provides better layout solutions:</p>
+        
+        <h3>Float-based Layout</h3>
+        <div class="code">
+          .container {
+            overflow: hidden; /* Clearfix */
+          }
+          .item {
+            float: left;
+            width: 30%;
+            margin: 1%;
+          }
+        </div>
+
+        <h3>CSS Grid</h3>
+        <div class="code">
+          .container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+          }
+        </div>
+
+        <div class="note">
+          <strong>Recommendation:</strong> Use floats for text wrapping around images and creating layouts. For more complex layouts, consider CSS Grid or table-based layouts.
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
