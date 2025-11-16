@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image overlay</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Inter", sans-serif;
+        padding: 20px;
+      }
+
+      .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+      }
+
+      .image-container {
+        width: 600px;
+        height: 600px;
+        position: relative;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+          0 0 0 1px rgba(255, 255, 255, 0.1);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+          box-shadow 0.4s ease;
+        cursor: pointer;
+      }
+
+      .image-container:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4),
+          0 0 0 1px rgba(255, 255, 255, 0.2);
+      }
+
+      .image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .image-container:hover img {
+        transform: scale(1.1);
+      }
+
+      .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(102, 126, 234, 0.85) 0%,
+          rgba(118, 75, 162, 0.85) 100%
+        );
+        backdrop-filter: blur(10px);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 40px;
+        z-index: 2;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .image-container:hover .image-overlay {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .overlay-content {
+        text-align: center;
+        max-width: 90%;
+      }
+
+      .overlay-content h1 {
+        font-family: "Playfair Display", serif;
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        transform: translateY(10px);
+        opacity: 0;
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+      }
+
+      .image-container:hover .overlay-content h1 {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .overlay-content p {
+        font-size: 1.125rem;
+        font-weight: 300;
+        line-height: 1.7;
+        margin-bottom: 32px;
+        color: rgba(255, 255, 255, 0.95);
+        text-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+        transform: translateY(10px);
+        opacity: 0;
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+      }
+
+      .image-container:hover .overlay-content p {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .overlay-content .subtitle {
+        font-size: 0.875rem;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 12px;
+        color: rgba(255, 255, 255, 0.8);
+        transform: translateY(10px);
+        opacity: 0;
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+      }
+
+      .image-container:hover .overlay-content .subtitle {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      button {
+        background: rgba(255, 255, 255, 0.95);
+        color: #667eea;
+        border: none;
+        padding: 14px 32px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        font-family: "Inter", sans-serif;
+        letter-spacing: 0.02em;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateY(10px);
+        opacity: 0;
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s,
+          transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .image-container:hover button {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      button:hover {
+        background: white;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      button:active {
+        transform: translateY(0);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .image-container::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 0.3) 100%
+        );
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        z-index: 1;
+      }
+
+      .image-container:hover::after {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="image-container">
+        <img
+          src="https://plus.unsplash.com/premium_photo-1676218968741-8179dd7e533f?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="Serene mountain landscape at sunset"
+        />
+        <div class="image-overlay">
+          <div class="overlay-content">
+            <p class="subtitle">Discover Nature's Beauty</p>
+            <h1>Majestic Mountain Vista</h1>
+            <p>
+              Experience the breathtaking grandeur of nature's most stunning
+              landscapes. This captivating scene showcases the serene beauty of
+              snow-capped peaks against a dramatic sky, inviting you to explore
+              the wonders of the great outdoors and find peace in nature's
+              embrace.
+            </p>
+            <button>Explore More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

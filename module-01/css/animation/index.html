@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cubic Bezier</title>
+    <style>
+      body {
+        padding: 100px 0px 100px 500px;
+        border: 1px solid red;
+      }
+      .value-red {
+        position: absolute;
+        display: block;
+        top: 210px;
+        left: 90px;
+        color: #eb5a40;
+        font-family: monospace;
+        font-size: 20px;
+        line-height: 1.3;
+        box-sizing: border-box;
+      }
+      .value-green {
+        position: absolute;
+        display: block;
+        top: 460px;
+        left: 90px;
+        color: #3b8580;
+        font-family: monospace;
+        font-size: 20px;
+        line-height: 1.3;
+        letter-spacing: 0.5px;
+        box-sizing: border-box;
+      }
+      .highlighted {
+        background-color: #ffdd00;
+      }
+      .red-brick,
+      .green-brick {
+        position: relative;
+        display: block;
+        width: 150px;
+        height: 150px;
+        padding: 0;
+        margin: 100px 0px;
+        box-sizing: border-box;
+      }
+      .red-brick {
+        background: #eb5a40;
+        animation: easygoing 4s linear alternate infinite 1s;
+      }
+      .green-brick {
+        background: #3b8580;
+        animation: speedy 4s cubic-bezier(0.8, 1, 0.7, 1.5) alternate infinite
+          1s;
+      }
+      @keyframes easygoing {
+        0% {
+          transform: translate3d(0px, 0px, 0px);
+        }
+        100% {
+          transform: translate3d(800px, 0px, 0px);
+        }
+      }
+      @keyframes speedy {
+        0% {
+          transform: translate3d(0px, 0px, 0px);
+        }
+        100% {
+          transform: translate3d(800px, 0px, 0px);
+        }
+      }
+      .boundary-line-start {
+        position: fixed;
+        top: 0;
+        left: 507px;
+        width: 1px;
+        height: 100%;
+        border-left: 2px dotted #000000;
+      }
+      .boundary-line-end {
+        position: fixed;
+        top: 0;
+        left: 1456px;
+        width: 1px;
+        height: 100%;
+        border-left: 2px dotted #000000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="boundary-line-start"></div>
+    <p class="value-red">
+      animation-duration: <strong>4s</strong
+      ><br /><br />animation-timing-function:<br /><strong
+        ><span class="highlighted">linear</span></strong
+      >
+    </p>
+    <p class="value-green">
+      animation-duration: <strong>4s</strong
+      ><br /><br />animation-timing-function:<br /><strong
+        ><span class="highlighted">cubic-bezier(0.8,1,0.7,1.5)</span></strong
+      >
+    </p>
+    <div class="red-brick"></div>
+    <div class="green-brick"></div>
+    <div class="boundary-line-end"></div>
+  </body>
+</html>
