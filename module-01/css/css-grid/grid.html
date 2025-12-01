@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Grid</title>
+
+    <style>
+      /* 
+    ============================================================
+    ⭐ WHAT IS CSS GRID?
+    ============================================================
+    CSS Grid is a TWO-DIMENSIONAL layout system.
+    This means it can control layout in BOTH:
+      → Rows (vertical)
+      → Columns (horizontal)
+
+    This makes Grid perfect for:
+      ✓ Full web page layouts
+      ✓ Dashboards
+      ✓ Galleries
+      ✓ Bento-style designs
+      ✓ Complex 2D UI structures
+
+    Flexbox = ONE-dimensional (only in row OR column)
+    Grid     = TWO-dimensional (row AND column together)
+
+    Flexbox decides space in ONE direction.
+    Grid gives you a full layout in TWO directions.
+
+    */
+
+      /* ============================================================
+       GRID CONTAINER (Parent)
+       ============================================================ */
+      .grid-container {
+        display: grid; /* Enable Grid */
+        gap: 0.5rem; /* Space between items */
+
+        /* 
+      -------------------------------------------
+      ⭐ EXPLICIT GRID
+      We define EXACTLY how many columns we want
+      -------------------------------------------
+      */
+        grid-template-columns: repeat(3, 1fr);
+        /* Means → 3 equal columns */
+
+        /* 
+      -------------------------------------------
+      ⭐ IMPLICIT GRID
+      Rows are created automatically
+      -------------------------------------------
+      */
+        grid-auto-rows: 150px; /* Each new row = 150px height */
+
+        /*
+      grid-auto-flow:
+        → row (default)
+        → column
+        → dense (fills empty spaces like masonry layout)
+      */
+        /* grid-auto-flow: dense; */
+      }
+
+      /* Grid Items */
+      .item {
+        background: royalblue;
+        padding: 1.5rem;
+        border-radius: 10px;
+        color: white;
+        font-size: 1.2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* ========================================================
+       ⭐ MODERN RESPONSIVE GRID (Bento Style)
+       ======================================================== */
+      .bento-grid {
+        display: grid;
+        gap: 1rem;
+
+        /*
+      ⭐ auto-fit + minmax = Responsive without media queries
+      The layout automatically adapts:
+        → 1 column on mobile
+        → 2–4 columns as screen gets wider
+      */
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+
+        /* Smaller rows to allow tall/short items */
+        grid-auto-rows: 120px;
+
+        /* dense = fills empty areas nicely */
+        grid-auto-flow: dense;
+      }
+
+      .bento-item {
+        background: #222;
+        color: white;
+        border-radius: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .wide {
+        grid-column: span 2;
+      }
+      .tall {
+        grid-row: span 2;
+      }
+      .big {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+
+      /* ========================================================
+       ⭐ GRID TEMPLATE AREAS (Full page layouts)
+       ======================================================== */
+      .layout {
+        display: grid;
+        gap: 1rem;
+
+        grid-template-columns: 200px 1fr 200px;
+        grid-template-rows: 70px 1fr 70px;
+
+        /* Full page layout using NAMES */
+        grid-template-areas:
+          "header header header"
+          "sidebar content ads"
+          "footer footer footer";
+      }
+
+      .layout div {
+        padding: 2rem;
+        border-radius: 10px;
+        color: white;
+      }
+
+      .header {
+        grid-area: header;
+        background: #4c6ef5;
+      }
+      .sidebar {
+        grid-area: sidebar;
+        background: #7950f2;
+      }
+      .content {
+        grid-area: content;
+        background: #228be6;
+      }
+      .ads {
+        grid-area: ads;
+        background: #339af0;
+      }
+      .footer {
+        grid-area: footer;
+        background: #4dabf7;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ============================================================
+       ⭐ PART 1: BASIC GRID (2D LAYOUT)
+       ============================================================ -->
+    <h2>Basic CSS Grid Example (2D Layout)</h2>
+
+    <!-- 
+  Grid is *two dimensional*:
+
+        Columns →
+    ┌──────────────────────┐
+    │  item   item   item  │  ← Row 1
+    │  item   item   item  │  ← Row 2
+    │  item   item   item  │  ← Row 3
+    └──────────────────────┘
+
+  Unlike flexbox, Grid controls BOTH row & column at once.
+  -->
+    <div class="grid-container">
+      <div class="item">1</div>
+      <div class="item">2</div>
+      <div class="item">3</div>
+      <div class="item">4</div>
+      <div class="item">5</div>
+      <div class="item">6</div>
+      <div class="item">7</div>
+      <div class="item">8</div>
+      <div class="item">9</div>
+    </div>
+
+    <hr />
+
+    <!-- ============================================================
+       ⭐ PART 2: MODERN RESPONSIVE GRID (AUTO-FIT + MINMAX)
+       ============================================================ -->
+    <h2>Responsive Grid (Modern Layout, No Media Queries)</h2>
+
+    <!-- 
+  This layout automatically adjusts its number of columns.
+
+  It uses:
+      repeat(auto-fit, minmax(180px, 1fr))
+
+  Meaning:
+    → The smallest box is 180px
+    → When more space available, the box grows to fill
+    → Automatically forms 1, 2, 3, 4... columns
+  -->
+    <div class="bento-grid">
+      <div class="bento-item big">Big Box</div>
+      <div class="bento-item">1</div>
+      <div class="bento-item wide">Wide Box</div>
+      <div class="bento-item tall">Tall Box</div>
+      <div class="bento-item">2</div>
+      <div class="bento-item">3</div>
+    </div>
+
+    <hr />
+
+    <!-- ============================================================
+       ⭐ PART 3: GRID TEMPLATE AREAS (FULL PAGE LAYOUT)
+       ============================================================ -->
+    <h2>Grid Template Areas (Full Website Layout)</h2>
+
+    <!-- 
+  This is how full pages are designed in modern CSS.
+  
+  We define named areas:
+      header | header | header
+      sidebar | content | ads
+      footer | footer | footer
+
+  Much easier than Flexbox for full layouts.
+  -->
+    <div class="layout">
+      <div class="header">Header</div>
+      <div class="sidebar">Sidebar</div>
+      <div class="content">Content</div>
+      <div class="ads">Ads Section</div>
+      <div class="footer">Footer</div>
+    </div>
+  </body>
+</html>

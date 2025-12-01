@@ -1,0 +1,135 @@
+/* =============================
+   CSS GRID MAIN EXAMPLE STYLES
+   ============================= */
+
+/* Grid Container Example */
+.grid-container {
+    height: 800px;
+    display: grid;
+    gap: 0.2em;
+  
+    /* Explicit Columns */
+    grid-template-columns: 300px 300px 300px;
+  
+    /* Implicit Columns */
+    grid-auto-columns: 300px;
+  
+    /* Implicit Rows */
+    grid-auto-rows: 150px;
+  }
+  
+  .item {
+    width: 50px;
+    height: 10px;
+    padding: 2em;
+    background-color: rgba(0, 0, 255, 0.799);
+    color: white;
+    text-align: center;
+    font-size: 1.5rem;
+    border-radius: 8px;
+  }
+  
+  /* =============================
+       LAYOUT USING GRID TEMPLATE AREAS
+       ============================= */
+  
+  .layout {
+    display: grid;
+    gap: 1rem;
+  
+    grid-template-columns: 200px 1fr 200px;
+    grid-template-rows: 70px 1fr 70px;
+  
+    grid-template-areas:
+      "header header header"
+      "sidebar content ads"
+      "footer footer footer";
+  }
+  
+  .layout div {
+    padding: 2rem;
+    color: white;
+    border-radius: 10px;
+  }
+  
+  .header {
+    grid-area: header;
+    background: #4c6ef5;
+  }
+  .sidebar {
+    grid-area: sidebar;
+    background: #7950f2;
+  }
+  .content {
+    grid-area: content;
+    background: #228be6;
+  }
+  .ads {
+    grid-area: ads;
+    background: #339af0;
+  }
+  .footer {
+    grid-area: footer;
+    background: #4dabf7;
+  }
+  
+  /* =============================
+       BENTO GRID EXAMPLE
+       ============================= */
+  
+  .box {
+    background-color: #0071ff;
+  }
+  
+  .bento-container {
+    height: 100vh;
+    display: grid;
+    gap: 1em;
+  
+    grid-template-columns: repeat(4, 200px);
+    grid-template-rows: repeat(2, 200px);
+  
+    grid-template-areas:
+      "box1 box2 box2 box3"
+      "box1 box4 box5 box5";
+  
+    justify-content: center;
+    align-content: center;
+  }
+  
+  .bento-box1 {
+    grid-area: box1;
+  }
+  .bento-box2 {
+    grid-area: box2;
+  }
+  .bento-box3 {
+    grid-area: box3;
+  }
+  .bento-box4 {
+    grid-area: box4;
+  }
+  .bento-box5 {
+    grid-area: box5;
+  }
+  
+  /* =============================
+       PRODUCT GRID (RESPONSIVE)
+       ============================= */
+  
+  .product-container {
+    display: grid;
+    gap: 1rem;
+  
+    /* Auto-fit makes it responsive without media queries */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  
+    place-content: center;
+  }
+  
+  .product {
+    height: 300px;
+    background-color: #7950f2;
+    border-radius: 10px;
+  }
+  

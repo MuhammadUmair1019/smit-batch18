@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Complete CSS Grid</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- =============================================================
+         CSS GRID FULL LECTURE – All Concepts in Proper Teaching Order
+         ============================================================= -->
+
+    <h1>CSS Grid </h1>
+
+    <!-- =============================
+         1. GRID CONTAINER BASICS
+         ============================= -->
+    <h2>1. Grid Container Properties</h2>
+
+    <p>
+      Here we introduce:
+      <strong
+        >display: grid, gap, rows, columns, implicit grid, explicit grid</strong
+      >
+    </p>
+
+    <div class="grid-container example-1">
+      <div class="item">1</div>
+      <div class="item">2</div>
+      <div class="item">3</div>
+      <div class="item">4</div>
+      <div class="item">5</div>
+      <div class="item">6</div>
+    </div>
+
+    <!-- =============================
+         2. RESPONSIVE GRID WITHOUT MEDIA QUERIES
+         ============================= -->
+    <h2>2. Responsive Grid without Media Queries</h2>
+
+    <p>
+      We use <strong>auto-fit</strong> and <strong>minmax()</strong> to make a
+      fully responsive grid.
+    </p>
+
+    <div class="product-container">
+      <div class="product"></div>
+      <div class="product"></div>
+      <div class="product"></div>
+      <div class="product"></div>
+      <div class="product"></div>
+      <div class="product"></div>
+    </div>
+
+    <!-- =============================
+         3. GRID DENSE PACKING
+         ============================= -->
+    <h2>3. Dense Packing (auto-flow: dense)</h2>
+
+    <p>This shows how CSS Grid automatically fills empty spaces.</p>
+
+    <div class="dense-grid">
+      <div class="dense-box tall">A</div>
+      <div class="dense-box">B</div>
+      <div class="dense-box">C</div>
+      <div class="dense-box wide">D</div>
+      <div class="dense-box">E</div>
+      <div class="dense-box">F</div>
+    </div>
+
+    <!-- =============================
+         4. 2D LAYOUT USING GRID
+         ============================= -->
+    <h2>4. Full 2D Layout</h2>
+
+    <div class="layout">
+      <div class="header">Header</div>
+      <div class="sidebar">Sidebar</div>
+      <div class="content">Content</div>
+      <div class="ads">Ads</div>
+      <div class="footer">Footer</div>
+    </div>
+
+    <!-- =============================
+         5. BENTO GRID (ADVANCED)
+         ============================= -->
+    <h2>5. Bento Grid Layout</h2>
+
+    <div class="bento-container">
+      <div class="box bento-box1">1</div>
+      <div class="box bento-box2">2</div>
+      <div class="box bento-box3">3</div>
+      <div class="box bento-box4">4</div>
+      <div class="box bento-box5">5</div>
+    </div>
+  </body>
+</html>
