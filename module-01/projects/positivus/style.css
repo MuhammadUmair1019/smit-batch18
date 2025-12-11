@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --clr-bg-green: #B9FF66; 
+  --clr-bg-white: #E3E3E3; 
+  --clr-bg-black: #191a23; 
+  
+}
+body {
+  color: #191a23;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+h1, .h1 {
+  font-size: 60px;
+  font-weight: 500;
+}
+
+h2, .h2 {
+  font-size: 40px;
+  font-weight: 500;
+}
+
+h3, .h3 {
+  font-size: 30px;
+  font-weight: 500;
+}
+
+h4, .h4 {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+p {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+@media (max-width: 992px) {
+  h1, .h1 {
+    font-size: 43px; font-weight: 500;
+  }
+  
+  h2, .h2 {
+    font-size: 36px; font-weight: 500;
+  }
+  
+  h3, .h3 {
+    font-size: 26px; font-weight: 500;
+  }
+  
+  h4, .h4 {font-size: 18px; font-weight: 500;}
+  
+  p {font-size: 16px; font-weight: 400;}
+
+  .footer a {
+    text-decoration: none;
+  }
+
+  .box-accrdn img {
+    width: 30px;
+    height: 30px;
+  }
+
+}
+
+.box a {
+  text-decoration: none;
+  color: #191a23;
+  font-weight: 500;
+}
+.shadow-theme {
+  box-shadow: 0px 5px 3px black;
+}
+
+.section-padding {
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+
+.logo-img {
+  width: 150px;
+}
+
+.bg-green {
+  background-color: var(--clr-bg-green);
+}
+
+.form-check-input:checked {
+  background-color: var(--clr-bg-green);
+  background-image: none;
+  border-color: white;
+  box-shadow: none;
+}
+
+.foot-items {
+  list-style-type: none;
+}
+
+.foot-item a {
+  color: white;
+}
+
+.footer a {
+  text-underline-offset: 4px;
+}
+
