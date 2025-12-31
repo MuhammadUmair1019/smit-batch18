@@ -2,12 +2,61 @@
 // REVISION: IF / ELSE, COMPARISON & LOGICAL OPERATORS
 // ======================================================
 
+// var age = prompt("Enter your age:");
+// var hasID = prompt("Do you have ID? (yes/no)").toLowerCase();
+
+// age = Number(age);
+
+// if(age >= 18 && hasID === "yes"){
+//   console.log("Allowed to vote");
+// } else {
+//   console.log("Not allowed");
+// }
+
+// var day = prompt("Enter the day:");
+// var holiday = prompt("Is it a holiday? (yes/no)").toLowerCase();
+
+// if(day === "Saturday" || day === "Sunday"){
+//   if(holiday === "yes"){
+//     console.log("Relax and enjoy");
+//   } else {
+//     console.log("Study time");
+//   }
+// } else {
+//   console.log("Weekday work");
+// }
+
+var fullName = "Ahmed";
+
+// A h m e d -> 5
+// 0 1 2 3 4
+
+var index = fullName.length - 1;
+console.log(fullName[index]);
+console.log(fullName.charAt(4)); // ??
+
+// console.log(fullName.toLowerCase())
+// console.log(fullName.toUpperCase())
+// console.log(fullName.trimEnd())
+// console.log(fullName.trimStart())
+// console.log(fullName.trim())
+// console.log(fullName.toLowerCase().trim())
+
+// if (fullName.toLowerCase().trim() === "muhammad") {
+//   console.log("TRUE");
+// } else {
+//   console.log("FALSE");
+// }
+
+// ----------------------------------------------------
+
 var name = "Ali"; // Student name (String)
 var attendance = true; // Attendance status (Boolean)
 
 // prompt() always returns a STRING
 // Using + converts it into a NUMBER
-var marks = +prompt("Enter your marks (0 - 100):");
+// var marks = +prompt("Enter your marks (0 - 100):");
+var marks = 80;
 
 console.log("Marks:", marks);
 console.log("Type of marks:", typeof marks);
