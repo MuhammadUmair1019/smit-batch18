@@ -9,6 +9,7 @@
 // Instead of creating separate variables for each student,
 // we use OBJECTS to group related data.
 
+
 var s1 = {
   name: "Ahmed",
   marks: 70,
