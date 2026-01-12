@@ -1,0 +1,10 @@
+ Print Positive Numbers
+ var nums = [-5, 10, -3, 7, -1, 8];
+
+
+Count Pass & Fail Students
+let marks = [45, 67, 32, 90, 50, 41];
+
+
+Search a Value
+let arr = [10, 20, 30, 40, 50];
