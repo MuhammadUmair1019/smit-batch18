@@ -70,6 +70,8 @@ Expression explanation step-by-step:
 
 var result = (5 + 3) * 2 ** 3 ** 2 / 4 + 10 - 6 % 4;
 
+4096 / 4 + 10 - 6 % 4
+
 /*
 STEP-BY-STEP BREAKDOWN:
 
