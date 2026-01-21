@@ -8,6 +8,9 @@
  *************************************************/
 
 
+// Digram link
+// https://excalidraw.com/#json=8fe6x7aFK95HWLHYcM5_Z,X8RPu0IH-MxD4j4dGLoH1w
+
 /* =================================================
    STACK vs HEAP MEMORY (IMPORTANT CONCEPT)
 ================================================= */
