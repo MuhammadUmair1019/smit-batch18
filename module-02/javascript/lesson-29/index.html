@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript | Lesson 29</title>
+
+  <style>
+    /* ================================
+       EVENT BUBBLING DEMO STYLES
+       (Currently Commented Out)
+    ================================= */
+
+    /*
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      min-width: 100px;
+      min-height: 100px;
+      padding: 5rem;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .grandparent {
+      background-color: gray;
+      color: white;
+    }
+
+    .parent {
+      background-color: lightseagreen;
+    }
+
+    .child {
+      background-color: lightskyblue;
+    }
+    */
+
+    /* ================================
+       TODO LIST STYLES
+    ================================= */
+
+    li {
+      list-style-type: none;
+      padding: 0.5rem;
+      border: 1px dotted gray;
+      cursor: pointer;
+      margin-bottom: 4px;
+      /* text-decoration: line-through; */
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =================================
+       EVENT BUBBLING STRUCTURE (Commented)
+  ================================== -->
+  <!--
+  <div class="grandparent box">
+    Grandparent
+    <div class="parent box">
+      Parent
+      <div class="child box">
+        Child
+      </div>
+    </div>
+  </div>
+  -->
+
+  <!-- =================================
+       TODO LIST APP
+  ================================== -->
+
+  <h1>Todo</h1>
+
+  <ul>
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+  </ul>
+
+  <button>Add Todo</button>
+
+  <script src="app.js"></script>
+</body>
+</html>
