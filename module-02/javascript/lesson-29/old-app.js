@@ -23,10 +23,11 @@ for (let i = 0; i < list.length; i++) {
 // ================================
 
 button.addEventListener("click", function () {
-  const li = document.createElement("li");
-  li.textContent = "Item 4";
+  ul.innerHTML += "<li>item 4</li>"
+  // const li = document.createElement("li");
+  // li.textContent = "Item 4";
 
-  console.log(li);
+  // console.log(li);
 
-  ul.append(li);
+  // ul.append(li);
 });
