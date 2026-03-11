@@ -54,3 +54,36 @@ list.addEventListener("click", function (e) {
       e.target.parentElement.previousElementSibling.textContent;
   }
 });
+
+function filterTodos(searchText) {
+  for (let i = 0; i < list.children.length; i++) {
+    const li = list.children[i];
+    if (!li.textContent.includes(searchText)) {
+      li.classList.add("filtered");
+    } else {
+      li.classList.remove("filtered");
+    }
+  }
+}
+
+// "".toLowerCase
+search.addEventListener("keyup", function (e) {
+  const searchText = e.target.value.toLowerCase().trim();
+
+  for (let i = 0; i < list.children.length; i++) {
+
+    // console.log(searchText)
+    // console.log(searchText ===  list.children[i].textContent)
+    if(!list.children[i].textContent.toLowerCase().includes(searchText)) {
+      // console.log("Match")
+      list.children[i].classList.add("filtered")
+      // console.log(list.children[i].classList)
+      // console.log(list.children[i]);
+    } else {
+      list.children[i].classList.remove("filtered")
+    }
+  }
+
+  // const searchText = e.target.value.trim();
+  // filterTodos(searchText);
+});
