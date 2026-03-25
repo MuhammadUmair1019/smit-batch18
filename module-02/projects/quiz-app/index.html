@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <!-- <link rel="stylesheet" href="styles.css" /> -->
+    <title>Quiz Project</title>
+  </head>
+  <body class="bg-light">
+    <!-- top section  -->
+    <div class="intro py-3 bg-white text-center">
+      <div class="container">
+        <h2 class="text-primary display-3 my-4">Quiz Project</h2>
+      </div>
+    </div>
+
+    <div class="result py-4 bg-white text-center d-none">
+      <div class="container lead">
+        <p>
+          You are <span class="text-primary display-4 p-3">0%</span> Correct
+        </p>
+      </div>
+    </div>
+
+    <div class="quiz py-4 bg-secondary">
+      <div class="container">
+        <h2 class="my5 text-white">On with question...</h2>
+
+        <form class="quiz-form text-white">
+          <div class="my-5">
+            <p class="lead font-weight-normal">
+              1. What is the capital of France?
+            </p>
+            <div class="form-check text-white-50 my-2">
+              <label class="form-check-label d-block">
+                <input
+                  type="radio"
+                  name="q1"
+                  value="a"
+                  class="form-check-input"
+                  checked
+                />London
+              </label>
+              <label class="form-check-label d-block">
+                <input
+                  type="radio"
+                  name="q1"
+                  value="b"
+                  class="form-check-input"
+                />Berlin
+              </label>
+              <label class="form-check-label d-block">
+                <input
+                  type="radio"
+                  name="q1"
+                  value="c"
+                  class="form-check-input"
+                />Paris
+              </label>
+            </div>
+          </div>
+
+          <div class="my-5">
+            <p class="lead font-weight-normal">
+              2. Which planet is known as the Red Planet?
+            </p>
+            <div class="form-check text-white-50 my-2">
+              <label class="form-check-label d-block">
+                <input
+                  type="radio"
+                  name="q2"
+                  value="a"
+                  class="form-check-input"
+                />Venus
+              </label>
+              <label class="form-check-label d-block">
+                <input
+                  type="radio"
+                  name="q2"
+                  value="b"
+                  class="form-check-input"
+                />Mars
+              </label>
+              <label class="form-check-label d-block">
+                <input
+                  type="radio"
+                  name="q2"
+                  value="c"
+                  class="form-check-input"
+                />Jupiter
+              </label>
+            </div>
+          </div>
+          <div class="my-5">
+            <p class="lead font-weight-normal">
+              3. What is the capital of Pakistan?
+            </p>
+            <div class="form-check text-white-50 my-2">
+              <label class="form-check-label d-block">
+                <input
+                  type="radio"
+                  name="q3"
+                  value="a"
+                  class="form-check-input"
+                />Islamabad
+              </label>
+              <label class="form-check-label d-block">
+                <input
+                  type="radio"
+                  name="q3"
+                  value="b"
+                  class="form-check-input"
+                />Karachi
+              </label>
+              <label class="form-check-label d-block">
+                <input
+                  type="radio"
+                  name="q3"
+                  value="c"
+                  class="form-check-input"
+                />Lahore
+              </label>
+            </div>
+          </div>
+          <div class="my-5">
+            <p class="lead font-weight-normal">
+              4. What is the national language of Pakistan?
+            </p>
+            <div class="form-check text-white-50 my-2">
+              <label class="form-check-label d-block">
+                <input
+                  type="radio"
+                  name="q4"
+                  value="a"
+                  class="form-check-input"
+                />Urdu
+              </label>
+              <label class="form-check-label d-block">
+                <input
+                  type="radio"
+                  name="q4"
+                  value="b"
+                  class="form-check-input"
+                />English
+              </label>
+              <label class="form-check-label d-block">
+                <input
+                  type="radio"
+                  name="q4"
+                  value="c"
+                  class="form-check-input"
+                />Punjabi
+              </label>
+            </div>
+          </div>
+     
+
+          <input type="submit" class="btn btn-primary" value="Submit Answers" />
+        </form>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
