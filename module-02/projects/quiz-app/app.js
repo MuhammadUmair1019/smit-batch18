@@ -18,7 +18,7 @@ form.addEventListener("submit", (e) => {
 
   console.log("scorePerQuestion", scorePerQuestion);
   // Check answers and calculate score
-  for (let i = 1; i <= userAnswers.length; i++) {
+  for (let i = 0; i < userAnswers.length; i++) {
     if (userAnswers[i] === correctAnswers[i]) {
       score += scorePerQuestion;
     }
