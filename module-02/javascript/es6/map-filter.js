@@ -1,7 +1,99 @@
+let products = [
+  {
+    id: 101,
+    title: "Mobile",
+    variations: [
+      { id: 1, color: "black", price: 5000, quantity: 5 },
+      { id: 2, color: "white", price: 6000, quantity: 4 },
+      { id: 3, color: "green", price: 7000, quantity: 3 },
+    ],
+    reviews: [
+      {
+        id: 110,
+        name: "Ahmed",
+        rating: 4.5,
+        comment: "very good product",
+        date: "1/26/2026",
+        status: false,
+      },
+      {
+        id: 111,
+        name: "Ali",
+        rating: 5.0,
+        comment: "very good product",
+        date: "1/26/2026",
+        status: true,
+      },
+      {
+        id: 112,
+        name: "Baber",
+        rating: 3.0,
+        comment: "bad product",
+        date: "1/26/2026",
+        status: true,
+      },
+      {
+        name: "Mujtaba",
+        rating: 4.0,
+        comment: "good product",
+        date: "1/26/2026",
+        status: false,
+      },
+    ],
+  },
+  {
+    id: 102,
+    title: "Airpod",
+    variations: [
+      { id: 1, color: "black", price: 3000, quantity: 3 },
+      { id: 2, color: "red", price: 4000, quantity: 2 },
+      { id: 3, color: "silver", price: 5000, quantity: 1 },
+    ],
+    reviews: [
+      {
+        id: 110,
+        name: " Zubair",
+        rating: 5.0,
+        comment: "very good product",
+        date: "1/26/2026",
+        status: false,
+      },
+      {
+        id: 111,
+        name: "Rehman",
+        rating: 4.5,
+        comment: "very good product",
+        date: "1/26/2026",
+        status: true,
+      },
+      {
+        id: 112,
+        name: "Baber",
+        rating: 3.0,
+        comment: "bad product",
+        date: "1/26/2026",
+        status: true,
+      },
+
+    ],
+  },
+];
+
+let titles = products.map(product =>  product.title)
+// for(let i=0; i < products.length; i++) {
+//     titles.push(products[i].title)
+// }
+
+console.log(titles)
+
+
+
+
+
 let marks = [10, 20, 30];
 let filterdArr = marks.filter((m) => m < 30).map((m) => m + 10);
 
-console.log(filterdArr);
+// console.log(filterdArr);
 // let filterdArr = marks.filter(m => m < 30); // []
 
 // filterdArr = filterdArr.map(m => m + 10)
