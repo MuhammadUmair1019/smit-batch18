@@ -1,12 +1,71 @@
-let products = [
-  { id: 101, title: "LED", price: 5000 },
-  { id: 102, title: "Laptop", price: 3000 },
-  { id: 103, title: "Mobile", price: 1000 },
-];
+let colors = ["red", "green", "red", "gray", "black", "green"];
 
-products.sort((a, b) => (a.price > b.price ? -1 : 1));
+let colorCount = colors.reduce((acc, color) => {
+  acc[color] = (acc[color] || 0) + 1;
+  return acc;
+}, {});
+console.log(colorCount);
 
-console.log(products);
+// ----------------------------------------------
+// let obj = {};
+// // console.log(obj["red"]);
+// obj["red"] = (obj["red"] || 0) + 1;
+// console.log(obj);
+
+
+// let colorCount = colors.reduce((acc, color) => {
+//   acc[color] ? acc[color]++ : (acc[color] = 1);
+//   return acc;
+// }, {});
+// console.log(colorCount);
+
+// let colorCount = colors.reduce((acc, color) => {
+//   if (acc[color]) {
+//     acc[color]++;
+//   } else {
+//     acc[color] = 1;
+//   }
+//   return acc;
+// }, {});
+
+// let colorCount = {}
+
+// for(let i=0; i < colors.length; i++) {
+//   let color = colors[i];
+
+//   if(colorCount[color]) {
+//     colorCount[color]++
+//   } else {
+//     colorCount[color] = 1
+//   }
+// }
+// console.log(colorCount)
+
+// let colorCount = {
+//   red: 1
+// }
+
+// colorCount['red'] = colorCount['red'] + 1
+// console.log(colorCount)
+
+// output
+// {
+//   red: 2,
+//   green: 2,
+//   gray: 1,
+//   black: 1,
+// }
+
+// --------------------------------------------------------------
+// let products = [
+//   { id: 101, title: "LED", price: 5000 },
+//   { id: 102, title: "Laptop", price: 3000 },
+//   { id: 103, title: "Mobile", price: 1000 },
+// ];
+
+// products.sort((a, b) => (a.price > b.price ? -1 : 1));
+
+// console.log(products);
 
 // let arr = [5, 10, 2, 2, 1];
 // arr.sort((a, b) => a - b);
