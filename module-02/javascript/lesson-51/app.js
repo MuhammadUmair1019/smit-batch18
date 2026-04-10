@@ -1,11 +1,11 @@
 
-function test() {
-  console.log(arguments);
-}
+// function test() {
+//   console.log(arguments);
+// }
 
-test(2)
+// test(2)
 
-// function sum(...rest) {
+// function sum(a, ...rest) {
 //   return rest.reduce((acc, curr) => {
 //     return acc + curr;
 //   }, 0);
@@ -16,6 +16,8 @@ test(2)
 // (function (x) {
 //   console.log(x, "IIFE executed");
 // })(2)
+
+// (x => console.log(x, "IIFE executed"))(2)
 
 // test()
 
