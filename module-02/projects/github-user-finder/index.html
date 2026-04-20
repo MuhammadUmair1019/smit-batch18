@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub User Finder</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>GitHub User Finder</h1>
+
+      <div class="search-box">
+        <input
+          type="text"
+          id="usernameInput"
+          placeholder="Enter GitHub username..."
+        />
+        <button id="searchBtn">Search</button>
+      </div>
+
+      <p id="statusText"></p>
+
+      <div class="profile-card" id="profileCard">
+        <img id="userImg" src="" alt="User Image" />
+
+        <h2 id="userName">Name</h2>
+        <p id="userBio">Bio</p>
+
+        <p><strong>Followers:</strong> <span id="followers">0</span></p>
+        <p><strong>Following:</strong> <span id="following">0</span></p>
+        <p><strong>Public Repos:</strong> <span id="repos">0</span></p>
+
+        <a id="profileLink" href="#" target="_blank">View Profile</a>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
