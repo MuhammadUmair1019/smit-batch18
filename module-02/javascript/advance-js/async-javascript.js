@@ -1,36 +1,81 @@
-function fetchData(url) {
-  return new Promise((resolve, reject) => {
-    const request = new XMLHttpRequest();
+// async function getData() {
+//   try {
+//     const resp = await fetch("https://jsonplaceholder.typicode.com/userss");
 
-    request.addEventListener("readystatechange", () => {
-      if (request.readyState === 4 && request.status === 200) {
-        const data = JSON.parse(request.responseText);
-        resolve(data);
-      } else if (request.readyState === 4) {
-        reject("Could not found the resoruce!");
-      }
-    });
+//     if (!resp.ok) {
+//       throw new Error("Could not found the resource");
+//     }
 
-    request.open("GET", url);
-    request.send();
-  });
-}
+//     const data = await resp.json();
 
-fetchData("https://jsonplaceholder.typicode.com/users/1")
-  .then((data) => {
-    console.log(data);
+//     console.log(resp, "--------------");
+//     console.log(data);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
-    return fetchData("https://jsonplaceholder.typicode.com/users/2");
-  })
-  .then((data) => {
-    console.log(data);
+// getData();
 
-    return fetchData("https://jsonplaceholder.typicode.com/users/3");
-  })
-  .then((data) => {
-    console.log(data);
-  })
-  .catch((err) => console.log(err));
+// async function getData() {
+//   const resp = await fetch("https://jsonplaceholder.typicode.com/users/1");
+//   const data = await resp.json();
+
+//   const resp2 = await fetch("https://jsonplaceholder.typicode.com/users/2");
+//   const data2 = await resp2.json();
+
+//   console.log(data);
+//   console.log(data2);
+// }
+
+// getData();
+// ------------------------------------------
+// fetch("https://jsonplaceholder.typicode.com/users")
+//   .then((response) => {
+//     // console.log(response);
+//     return response.json();
+//   })
+//   .then((data) => {
+//     console.log(data);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+// ---------------------------------------------------------------
+// function fetchData(url) {
+//   return new Promise((resolve, reject) => {
+//     const request = new XMLHttpRequest();
+
+//     request.addEventListener("readystatechange", () => {
+//       if (request.readyState === 4 && request.status === 200) {
+//         const data = JSON.parse(request.responseText);
+//         resolve(data);
+//       } else if (request.readyState === 4) {
+//         reject("Could not found the resoruce!");
+//       }
+//     });
+
+//     request.open("GET", url);
+//     request.send();
+//   });
+// }
+
+// fetchData("https://jsonplaceholder.typicode.com/users/1")
+//   .then((data) => {
+//     console.log(data);
+
+//     return fetchData("https://jsonplaceholder.typicode.com/users/2");
+//   })
+//   .then((data) => {
+//     console.log(data);
+
+//     return fetchData("https://jsonplaceholder.typicode.com/users/3");
+//   })
+//   .then((data) => {
+//     console.log(data);
+//   })
+//   .catch((err) => console.log(err));
 
 // ------------------------------------------------------------
 // const getSomething = () => {
