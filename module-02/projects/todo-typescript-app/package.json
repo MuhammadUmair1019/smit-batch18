@@ -1,0 +1,21 @@
+{
+  "name": "todo-typescript-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc src/main.ts",
+    "dev": "vite",
+    "typecheck": "tsc --noEmit",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "vite": "^8.0.16"
+  }
+}

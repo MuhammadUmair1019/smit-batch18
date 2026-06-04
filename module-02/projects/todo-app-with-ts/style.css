@@ -1,0 +1,43 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  display: flex;
+  justify-content: center;
+  padding-top: 80px;
+}
+
+.container {
+  width: 400px;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.input-box {
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  flex: 1;
+  padding: 12px;
+}
+
+button {
+  padding: 12px;
+  cursor: pointer;
+}
+
+li {
+  margin-top: 10px;
+  padding: 12px;
+  background: #f1f5f9;
+  display: flex;
+  justify-content: space-between;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
