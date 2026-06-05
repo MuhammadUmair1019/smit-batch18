@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Supabase Todo App</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f7fc;
+      display: flex;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .auth-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .auth-section input {
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    .auth-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .auth-buttons button,
+    #logoutBtn {
+      border: 10px solid red;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+      font-weight: bold;
+    }
+
+    .signup-btn {
+      background: #10b981;
+    }
+
+    .login-btn {
+      background: #3b82f6;
+    }
+
+    #logoutBtn {
+      background: #ef4444;
+      width: 100%;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .todo-input {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .todo-input input {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .todo-input button {
+      padding: 12px 20px;
+      border: none;
+      background: #3b82f6;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .todo-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .todo-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      background: #fafafa;
+    }
+
+    .actions {
+      display: flex;
+      gap: 15px;
+    }
+
+    .fa-pen {
+      color: #f59e0b;
+    }
+
+    .fa-trash {
+      color: #ef4444;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>📝 Todo App</h1>
+
+    <!-- Auth Form -->
+    <div id="authSection" class="auth-section">
+      <input type="email" id="email" placeholder="Enter email" />
+      <input type="password" id="password" placeholder="Enter password" />
+
+      <div class="auth-buttons">
+        <button class="signup-btn" onclick="signUp()">
+          Sign Up
+        </button>
+
+        <button class="login-btn" onclick="login()">
+          Login
+        </button>
+      </div>
+    </div>
+
+    <button id="logoutBtn" onclick="logout()">
+      Logout
+    </button>
+
+    <!-- Todo App -->
+    <div id="todoSection" class="hidden">
+      <div class="todo-input">
+        <input type="text" id="todoInput" placeholder="Enter todo..." />
+        <button onclick="addTodo()">Add</button>
+      </div>
+
+      <div id="todoList" class="todo-list"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

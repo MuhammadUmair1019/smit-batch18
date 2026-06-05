@@ -1,13 +1,102 @@
-const SUPABASE_URL = "";
-const SUPABASE_PUBLISHABLE_KEY = "";
+const SUPABASE_URL = "https://hqbpfcvgipnoqtxggfhc.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_rJP3R4WgwIv2SFtr_E4_BA_KRnw47jX";
 const supabaseClient = supabase.createClient(
   SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY
 );
 
 window.onload = getTodos;
+window.onload = getUser;
+
+
+async function getUser() {
+  const { data: { user } } = await supabaseClient.auth.getUser()
+
+  if (user?.id) {
+    const todoSection = document.getElementById("todoSection")
+    const authSection = document.getElementById("authSection")
+    const logoutBtn = document.getElementById("logoutBtn")
+    logoutBtn.style.display = 'block'
+    todoSection.classList.remove("hidden")
+    authSection.classList.add("hidden")
+    getTodos()
+    // console.log(todoSection.classList.remove("hidden"))
+  }
+
+  console.log(user)
+}
+
+
+async function logout() {
+  const { error } = await supabaseClient.auth.signOut()
+
+  if (error) {
+    alert(error)
+  }
+
+  const todoSection = document.getElementById("todoSection")
+  const authSection = document.getElementById("authSection")
+  const logoutBtn = document.getElementById("logoutBtn")
+  logoutBtn.style.display = 'none'
+  todoSection.classList.add("hidden")
+  authSection.classList.remove("hidden")
+}
+
+
+async function signUp() {
+  const email = document.getElementById("email")
+  const password = document.getElementById("password")
+
+
+  console.log(email.value)
+  console.log(password)
+
+  if (!email.value || !password.value) {
+    alert("Please check your email and password")
+  }
+
+  const { data, error } = await supabaseClient.auth.signUp({
+    email: email.value,
+    password: password.value,
+  })
+
+  if (error) {
+    alert("Something went wrong")
+    console.log(error)
+  }
+
+  console.log(data)
+  console.log(error)
+}
+async function login() {
+  const email = document.getElementById("email")
+  const password = document.getElementById("password")
+
+
+  console.log(email.value)
+  console.log(password)
+
+  if (!email.value || !password.value) {
+    alert("Please check your email and password")
+  }
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email: email.value,
+    password: password.value,
+  })
+
+  if (error) {
+    alert("Something went wrong")
+    console.log(error)
+  }
+
+  getUser()
+  // console.log(data)
+  // console.log(error)
+}
 
 async function addTodo() {
+  const { data: { user } } = await supabaseClient.auth.getUser()
   const input = document.getElementById("todoInput");
 
   if (!input.value.trim()) {
@@ -17,6 +106,7 @@ async function addTodo() {
   const { error } = await supabaseClient.from("todos").insert({
     title: input.value,
     is_completed: false,
+    user_id: user.id
   });
 
   if (error) {
@@ -29,10 +119,13 @@ async function addTodo() {
 }
 
 async function getTodos() {
+  const { data: { user } } = await supabaseClient.auth.getUser()
+
   const { data, error } = await supabaseClient
     .from("todos")
     .select("*")
-    .order("id", { ascending: false });
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false });
 
   if (error) {
     console.log(error);
