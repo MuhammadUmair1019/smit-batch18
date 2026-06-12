@@ -98,24 +98,50 @@ async function login() {
 async function addTodo() {
   const { data: { user } } = await supabaseClient.auth.getUser()
   const input = document.getElementById("todoInput");
+  const todoImage = document.getElementById("todoImage");
 
   if (!input.value.trim()) {
     return alert("Enter a todo");
   }
 
-  const { error } = await supabaseClient.from("todos").insert({
-    title: input.value,
-    is_completed: false,
-    user_id: user.id
-  });
+  const file = todoImage.files[0];
+  const fileName = `${user.id}/${Date.now()}-${file.name}`
+  console.log(file)
+  if (file) {
 
-  if (error) {
-    console.log(error);
-    return;
+    const { data, error } = await supabaseClient.storage.from("images").upload(fileName, file)
+
+    // console.log(data)
+    // console.log(error)
+    // console.log(file)
+
+    if (data) {
+
+      const { data } = await supabaseClient
+        .storage
+        .from('images')
+        .getPublicUrl(fileName)
+
+
+      const { error } = await supabaseClient.from("todos").insert({
+        title: input.value,
+        is_completed: false,
+        user_id: user.id,
+        image_url: data.publicUrl
+      });
+
+      if (error) {
+        console.log(error);
+        return;
+      }
+
+      input.value = "";
+      getTodos();
+    }
   }
 
-  input.value = "";
-  getTodos();
+
+
 }
 
 async function getTodos() {
@@ -150,6 +176,8 @@ async function getTodos() {
               ${todo.title}
             </span>
           </div>
+
+            <img src="${todo.image_url}" width="${200}"  />
   
           <div class="actions">
             <i

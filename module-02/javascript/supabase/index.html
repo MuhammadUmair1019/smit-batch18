@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Supabase Todo App</title>
 
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <style>
     * {
@@ -147,6 +145,12 @@
   <div class="container">
     <h1>📝 Todo App</h1>
 
+    <div class="card">
+      <h1>Hello</h1>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem possimus at, sit, perspiciatis quam veniam
+        amet a impedit architecto vel ad nihil dolorem et fugiat? Minima repudiandae totam quam laboriosam.</p>
+    </div>
+
     <!-- Auth Form -->
     <div id="authSection" class="auth-section">
       <input type="email" id="email" placeholder="Enter email" />
@@ -171,8 +175,47 @@
     <div id="todoSection" class="hidden">
       <div class="todo-input">
         <input type="text" id="todoInput" placeholder="Enter todo..." />
+        <input type="file" id="todoImage">
+
         <button onclick="addTodo()">Add</button>
       </div>
+
+
+      <div id="todoList" class="todo-list"></div>
+    </div>
+  </div>
+  <div class="container">
+    <h1>📝 Todo App</h1>
+
+    <!-- Auth Form -->
+    <div id="authSection" class="auth-section">
+      <input type="email" id="email" placeholder="Enter email" />
+      <input type="password" id="password" placeholder="Enter password" />
+
+      <div class="auth-buttons">
+        <button class="signup-btn" onclick="signUp()">
+          Sign Up
+        </button>
+
+        <button class="login-btn" onclick="login()">
+          Login
+        </button>
+      </div>
+    </div>
+
+    <button id="logoutBtn" onclick="logout()">
+      Logout
+    </button>
+
+    <!-- Todo App -->
+    <div id="todoSection" class="hidden">
+      <div class="todo-input">
+        <input type="text" id="todoInput" placeholder="Enter todo..." />
+        <input type="file" id="todoImage">
+
+        <button onclick="addTodo()">Add</button>
+      </div>
+
 
       <div id="todoList" class="todo-list"></div>
     </div>
@@ -181,4 +224,5 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="./app.js"></script>
 </body>
+
 </html>
