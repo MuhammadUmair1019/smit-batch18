@@ -9,10 +9,10 @@ import Pass from "./components/Pass";
 import Fail from "./components/Fail";
 
 function App() {
-  let name = "Ahmed";
-  let marks = 0;
+    let name = "Ahmed";
+    let marks = 0;
 
-  return <>{marks > 50 ? <Pass marks={marks} /> : <Fail marks={marks} />}</>;
+    return <>{marks > 50 ? <Pass marks={marks} /> : <Fail marks={marks} />}</>;
 }
 
 // function Pass() {
