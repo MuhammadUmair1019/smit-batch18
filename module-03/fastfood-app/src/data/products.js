@@ -7,7 +7,7 @@ export const products = [
       "Juicy grilled beef patty topped with cheddar cheese, lettuce, tomatoes, onions, pickles, and our signature burger sauce.",
     price: 749,
     category: "Burger",
-    rating: 4.8,
+    rating: 3.8,
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ export const products = [
       "Crispy chicken fillet with iceberg lettuce, creamy mayo, and a toasted sesame bun.",
     price: 699,
     category: "Burger",
-    rating: 4.7,
+    rating: 2.7,
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ export const products = [
       "Tender marinated chicken wrapped in soft pita with garlic sauce and fresh vegetables.",
     price: 499,
     category: "Shawarma",
-    rating: 4.6,
+    rating: 1.5,
   },
   {
     id: 4,
@@ -47,7 +47,7 @@ export const products = [
       "Loaded with pepperoni, mozzarella cheese, and rich tomato sauce.",
     price: 1399,
     category: "Pizza",
-    rating: 4.9,
+    rating: 5.0,
   },
   {
     id: 6,
@@ -57,7 +57,7 @@ export const products = [
       "Spicy fajita chicken, onions, capsicum, and mozzarella cheese.",
     price: 1499,
     category: "Pizza",
-    rating: 4.8,
+    rating: 3.0,
   },
   {
     id: 7,
@@ -87,6 +87,6 @@ export const products = [
       "Fresh mozzarella, basil leaves, and rich tomato sauce on a crispy crust.",
     price: 1199,
     category: "Pizza",
-    rating: 4.5,
+    rating: 2.5,
   },
 ];

@@ -9,6 +9,7 @@ function ProductCard(props) {
             <div className="min-h-40">
                 <h3 className="text-3xl font-semibold">{product.title}</h3>
                 <p>{product.description}</p>
+                <p className="bg-blue-300">Rating {product.rating}</p>
                 <h3 className="text-2xl"> Rs. {product.price}</h3>
             </div>
         </div>
