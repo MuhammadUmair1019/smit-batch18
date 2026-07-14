@@ -90,3 +90,18 @@ export const products = [
     rating: 2.5,
   },
 ];
+
+
+const findRange = () => {
+  let min = products[0].price;
+  let max = 0;
+
+  products.forEach(product => {
+    if (product.price < min) min = product.price
+    if (product.price > max) max = product.price
+  })
+
+  return { min, max }
+}
+
+export const priceRange = findRange()

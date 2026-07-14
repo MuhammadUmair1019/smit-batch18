@@ -1,10 +1,11 @@
 import { products } from "./products"
 
-export const getVisibleProducts = (selectedCategories, selectedRating) => {
+export const getVisibleProducts = (selectedCategories, selectedRating, selectedPrice) => {
     let filterProducts = products;
-    if (!selectedCategories.length && !selectedRating) {
+    if (!selectedCategories.length && !selectedRating && !selectedPrice.isApplied) {
         return products;
     }
+
 
     if (selectedCategories.length > 0) {
         filterProducts = filterProducts.filter(product => selectedCategories.includes(product.category))
@@ -17,6 +18,11 @@ export const getVisibleProducts = (selectedCategories, selectedRating) => {
             }
         })
     }
+
+    if (selectedPrice.isApplied) {
+        filterProducts = filterProducts.filter(product => product.price >= selectedPrice.min && product.price <= selectedPrice.max)
+    }
+
 
     return filterProducts
 }
