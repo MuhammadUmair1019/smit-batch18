@@ -74,7 +74,7 @@ console.log(true == false); // false
 // Uncomment to test in browser
 
 // var userName = prompt("What is your name?");
-// alert("Welcome " + userName);
+// alert("Welcome " + userNa me);
 // console.log(userName);
 
 // -------------------------------------------------

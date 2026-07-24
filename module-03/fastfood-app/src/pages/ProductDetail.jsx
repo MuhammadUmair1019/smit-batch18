@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom"
 import { products } from "../data/products"
 import { useContext, useState } from "react"
-import { CartContext } from "../context/CartProvider"
+import { CartContext } from "../providers/CartProvider"
 
 const drinks = [
     { id: 101, name: "Coca Cola" },
@@ -16,6 +16,7 @@ function ProductDetail() {
     const { id } = useParams()
     let [quantity, setQuantity] = useState(1)
     const [selectedDrink, setSelectedDrink] = useState(drinks[0]);
+
     const { addToCart, cartItems } = useContext(CartContext)
 
     const product = products.find(product => product.id === +id)
@@ -24,7 +25,7 @@ function ProductDetail() {
         return <h1> Oops! Page not found</h1>
     }
 
-    console.log("cartItems", cartItems)
+    // console.log("cartItems", cartItems)
     // console.log("selectedDrink", selectedDrink)
 
     return (
@@ -55,9 +56,9 @@ function ProductDetail() {
             </div>
             <hr />
             <div className="p-3">
-                <button className="border p-2" onClick={() => setQuantity(quantity++)}>+</button>
+                <button className="border p-2 mx-3" onClick={() => setQuantity(quantity++)}>+</button>
                 {quantity}
-                <button className="border p-2" disabled={quantity === 1} onClick={() => setQuantity(quantity--)}>-</button>
+                <button className="border p-2 mx-3" disabled={quantity === 1} onClick={() => setQuantity(quantity--)}>-</button>
             </div>
             <button onClick={() => addToCart(product, quantity, selectedDrink)} className="border border-blue-600 p-3 mx-3 hover:bg-blue-200 cursor-pointer">Add to Cart</button>
         </div>
