@@ -56,9 +56,9 @@ function ProductDetail() {
             </div>
             <hr />
             <div className="p-3">
-                <button className="border p-2 mx-3" onClick={() => setQuantity(quantity++)}>+</button>
+                <button className="border p-2 mx-3" onClick={() => setQuantity(quantity + 1)}>+</button>
                 {quantity}
-                <button className="border p-2 mx-3" disabled={quantity === 1} onClick={() => setQuantity(quantity--)}>-</button>
+                <button className="border p-2 mx-3" disabled={quantity === 1} onClick={() => setQuantity(quantity - 1)}>-</button>
             </div>
             <button onClick={() => addToCart(product, quantity, selectedDrink)} className="border border-blue-600 p-3 mx-3 hover:bg-blue-200 cursor-pointer">Add to Cart</button>
         </div>

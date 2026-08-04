@@ -34,7 +34,7 @@ function MainRouter() {
         <h1>   Cart Items:</h1>
 
         {cartItems.map(cartItem => (
-          <div className="border">
+          <div className="border" key={`${Date.now}-${cartItem.id}`}>
             <h1> {cartItem.title}</h1>
             <h1> Drink: {cartItem.drink}</h1>
             <h1> {cartItem.title}</h1>
