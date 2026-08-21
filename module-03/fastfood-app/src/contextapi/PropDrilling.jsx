@@ -1,31 +1,25 @@
-import { useState } from "react"
+import { useState } from "react";
 
 function GrandChild(props) {
-
-    return <h1>{props.x}</h1>
+    return <h1>{props.x}</h1>;
 }
 
 function Child(props) {
-
-    return <GrandChild x={props.x} />
+    return <GrandChild x={props.x} />;
 }
 
 function Parent(props) {
-
-    return <Child x={props.x} />
+    return <Child x={props.x} />;
 }
 
-
-function App() {
-    const [x, setX] = useState(0)
+function PropDrillingDemo() {
+    const [x] = useState(0);
 
     return (
-        <>
+        <div>
             <Parent x={x} />
-        </>
-    )
+        </div>
+    );
 }
 
-export default App;
-
-
+export default PropDrillingDemo;

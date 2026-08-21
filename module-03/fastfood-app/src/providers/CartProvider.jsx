@@ -1,74 +1,116 @@
-import { createContext, useEffect, useState } from "react";
-
-export const CartContext = createContext()
+import { useEffect, useState } from "react";
+import { CartContext } from "../contextapi/CartContext";
 
 export default function CartProvider({ children }) {
-    const [cartItems, setCartItems] = useState([])
+    const [cartItems, setCartItems] = useState(() => {
+        try {
+            const saved = localStorage.getItem("cartItems");
+            return saved ? JSON.parse(saved) : [];
+        } catch {
+            return [];
+        }
+    });
+
+    const [toast, setToast] = useState(null);
+
+    const showToast = (message, type = "success") => {
+        setToast({ id: `${Date.now()}-${Math.random()}`, message, type });
+        setTimeout(() => {
+            setToast(null);
+        }, 3000);
+    };
 
     useEffect(() => {
-        let items = localStorage.getItem("cartItems");
-        if (items) {
-            console.log(items)
-            setCartItems(JSON.parse(items))
+        try {
+            localStorage.setItem("cartItems", JSON.stringify(cartItems));
+        } catch (error) {
+            console.error("Failed to save cart to localStorage", error);
         }
-    }, [])
+    }, [cartItems]);
 
-    console.log('carItems -->', cartItems)
+    const addToCart = (item, quantity = 1, drink = { name: "Coca Cola" }) => {
+        const drinkName = typeof drink === "string" ? drink : (drink?.name || "Coca Cola");
+        
+        setCartItems((prevItems) => {
+            const existingIndex = prevItems.findIndex(
+                (ci) => ci.id === item.id && ci.drink === drinkName
+            );
 
-    // useEffect(() => {
-    //     localStorage.setItem("cartItems", JSON.stringify(cartItems))
-    // }, [cartItems])
+            if (existingIndex > -1) {
+                const updated = [...prevItems];
+                updated[existingIndex] = {
+                    ...updated[existingIndex],
+                    quantity: updated[existingIndex].quantity + quantity,
+                };
+                return updated;
+            } else {
+                return [
+                    ...prevItems,
+                    {
+                        ...item,
+                        quantity,
+                        drink: drinkName,
+                        cartKey: `${item.id}-${drinkName}`,
+                    },
+                ];
+            }
+        });
 
-
-    const addToCart = (item, quantity, drink) => {
-        const cartIndex = cartItems.findIndex(cartItem => {
-            return cartItem.id === item.id && cartItem.drink === drink.name
-        })
-
-        if (cartIndex === -1) {
-            const copyCartItems = [...cartItems, { ...item, quantity, drink: drink.name }]
-            setCartItems(copyCartItems)
-            localStorage.setItem("cartItems", JSON.stringify(copyCartItems))
-        } else {
-            const copyItems = [...cartItems];
-            copyItems[cartIndex].quantity += quantity;
-            setCartItems(copyItems)
-            localStorage.setItem("cartItems", JSON.stringify(cartItems))
-        }
-    }
+        showToast(`Added ${quantity}x "${item.title}" (${drinkName}) to cart!`, "success");
+    };
 
     const removeCartItem = (item) => {
-        const copyCartItems = cartItems.filter(cartItem => {
-            if (cartItem.id === item.id && cartItem.drink !== item.drink) {
-                return false
-            } else {
-                return true
-            }
+        setCartItems((prevItems) =>
+            prevItems.filter(
+                (ci) => !(ci.id === item.id && ci.drink === item.drink)
+            )
+        );
+        showToast(`Removed "${item.title}" from cart`, "info");
+    };
 
-            console.log('id -->', cartItem.id !== item.id)
-            console.log('drink -->', cartItem.drink !== item.drink)
-            // if (cartItem.id !== item.id && cartItem.drink !== item.drink) {
-            //     return true
-            // } else {
-            //     return false
-            // }
-        })
+    const updateQuantity = (item, newQuantity) => {
+        if (newQuantity <= 0) {
+            removeCartItem(item);
+            return;
+        }
 
-        setCartItems(copyCartItems)
-        localStorage.setItem("cartItems", JSON.stringify(copyCartItems))
-    }
+        setCartItems((prevItems) =>
+            prevItems.map((ci) => {
+                if (ci.id === item.id && ci.drink === item.drink) {
+                    return { ...ci, quantity: newQuantity };
+                }
+                return ci;
+            })
+        );
+    };
+
+    const clearCart = () => {
+        setCartItems([]);
+        showToast("Cart has been cleared", "info");
+    };
 
     const cartCount = cartItems.reduce((sum, cartItem) => sum + cartItem.quantity, 0);
 
-    const totalCartPrice = cartItems.reduce((sum, cartItem) => sum + (cartItem.price * cartItem.quantity), 0)
-
-    // console.log(totalCartPrice)
-
+    const totalCartPrice = cartItems.reduce(
+        (sum, cartItem) => sum + cartItem.price * cartItem.quantity,
+        0
+    );
 
     return (
-        <CartContext.Provider value={{ cartItems, cartCount, totalCartPrice, addToCart, removeCartItem }}>
+        <CartContext.Provider
+            value={{
+                cartItems,
+                cartCount,
+                totalCartPrice,
+                addToCart,
+                removeCartItem,
+                updateQuantity,
+                clearCart,
+                toast,
+                showToast,
+            }}
+        >
             {children}
         </CartContext.Provider>
-    )
-
+    );
 }
