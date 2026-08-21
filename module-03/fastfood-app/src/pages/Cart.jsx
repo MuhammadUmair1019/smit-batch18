@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useCart } from "../contextapi/CartContext";
+import { useRestaurant } from "../contextapi/RestaurantContext";
 import EmptyCart from "../components/cart/EmptyCart";
 import CartItemList from "../components/cart/CartItemList";
 import OrderSummary from "../components/cart/OrderSummary";
@@ -16,6 +17,8 @@ function Cart() {
         clearCart,
         showToast,
     } = useCart();
+
+    const { createOrder } = useRestaurant();
 
     const [couponCode, setCouponCode] = useState("");
     const [appliedDiscount, setAppliedDiscount] = useState(null);
@@ -89,20 +92,30 @@ function Cart() {
             return;
         }
 
-        const generatedOrder = {
-            orderId: `FB-${Math.floor(100000 + Math.random() * 900000)}`,
+        const generatedOrder = createOrder({
             customerName: fullName,
             phone,
             address,
-            notes,
+            orderType: "delivery",
+            source: "online",
+            status: "pending",
             paymentMethod,
+            paymentStatus: paymentMethod === "card" ? "paid" : "unpaid",
+            notes,
             items: [...cartItems],
+            subtotal: totalCartPrice,
+            discount: discountAmount,
+            tax: taxAmount,
+            deliveryFee: standardDeliveryFee,
             totalAmount: finalTotal,
-            placedAt: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-            deliveryEstimate: "25 - 35 minutes",
-        };
+            cashTendered: 0,
+            changeDue: 0,
+        });
 
-        setOrderDetails(generatedOrder);
+        setOrderDetails({
+            ...generatedOrder,
+            deliveryEstimate: "25 - 35 minutes",
+        });
         setOrderPlaced(true);
         setIsCheckoutOpen(false);
         clearCart();

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { products } from "../data/products";
 import { getReviewsByProduct } from "../data/product-rating";
 import { useCart } from "../contextapi/CartContext";
+import { useRestaurant } from "../contextapi/RestaurantContext";
 import ProductCard from "../components/ProductCard";
 import ProductShowcase from "../components/product-detail/ProductShowcase";
 import DrinkSelector from "../components/product-detail/DrinkSelector";
@@ -21,6 +21,7 @@ function ProductDetail() {
     const { id } = useParams();
     const navigate = useNavigate();
     const { addToCart, showToast } = useCart();
+    const { menuItems } = useRestaurant();
 
     const [quantity, setQuantity] = useState(1);
     const [selectedDrink, setSelectedDrink] = useState(drinks[0]);
@@ -36,7 +37,7 @@ function ProductDetail() {
     const [newComment, setNewComment] = useState("");
     const [reviewSubmitted, setReviewSubmitted] = useState(false);
 
-    const product = products.find((p) => p.id === Number(id));
+    const product = menuItems.find((p) => p.id === Number(id));
 
     if (!product) {
         return (
@@ -54,7 +55,7 @@ function ProductDetail() {
         );
     }
 
-    const relatedProducts = products
+    const relatedProducts = menuItems
         .filter((p) => p.category === product.category && p.id !== product.id)
         .slice(0, 3);
 

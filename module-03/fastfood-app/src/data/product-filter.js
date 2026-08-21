@@ -1,13 +1,14 @@
 import { products } from "./products";
 
 export const getVisibleProducts = ({
+    items = null,
     selectedCategories = [],
     selectedRating = "",
     selectedPrice = { min: 0, max: 99999, isApplied: false },
     searchQuery = "",
     sortBy = "default"
 } = {}) => {
-    let filterProducts = [...products];
+    let filterProducts = items && items.length > 0 ? [...items] : [...products];
 
     // Filter by Categories
     if (selectedCategories && selectedCategories.length > 0) {

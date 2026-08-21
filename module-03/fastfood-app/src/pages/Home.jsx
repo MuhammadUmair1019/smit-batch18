@@ -1,4 +1,4 @@
-import { products } from "../data/products";
+import { useRestaurant } from "../contextapi/RestaurantContext";
 import HeroSection from "../components/home/HeroSection";
 import CategoryExplorer from "../components/home/CategoryExplorer";
 import BestSellers from "../components/home/BestSellers";
@@ -7,9 +7,11 @@ import WhyChooseUs from "../components/home/WhyChooseUs";
 import PromoBanner from "../components/home/PromoBanner";
 
 export default function Home() {
+    const { menuItems } = useRestaurant();
+
     // Pick top 3 best sellers (highest rated)
-    const bestSellers = [...products]
-        .sort((a, b) => b.rating - a.rating)
+    const bestSellers = [...menuItems]
+        .sort((a, b) => (b.rating || 0) - (a.rating || 0))
         .slice(0, 3);
 
     return (

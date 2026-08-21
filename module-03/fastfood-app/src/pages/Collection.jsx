@@ -6,6 +6,8 @@ import FilterSidebar from "../components/collection/FilterSidebar";
 import { getVisibleProducts } from "../data/product-filter";
 import { priceRange } from "../data/products";
 
+import { useRestaurant } from "../contextapi/RestaurantContext";
+
 const initPriceFilter = {
     min: priceRange.min,
     max: priceRange.max,
@@ -13,6 +15,7 @@ const initPriceFilter = {
 };
 
 function Collection() {
+    const { menuItems } = useRestaurant();
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedRating, setSelectedRating] = useState("");
     const [selectedPrice, setSelectedPrice] = useState(initPriceFilter);
@@ -42,13 +45,14 @@ function Collection() {
 
     const products = useMemo(() => {
         return getVisibleProducts({
+            items: menuItems,
             selectedCategories,
             selectedRating,
             selectedPrice,
             searchQuery,
             sortBy,
         });
-    }, [selectedCategories, selectedRating, selectedPrice, searchQuery, sortBy]);
+    }, [menuItems, selectedCategories, selectedRating, selectedPrice, searchQuery, sortBy]);
 
     const hasActiveFilters =
         selectedCategories.length > 0 ||

@@ -84,6 +84,14 @@ export default function Navbar() {
                             <span>Search food...</span>
                         </Link>
 
+                        {/* POS / Admin Dashboard Link */}
+                        <Link
+                            to="/dashboard"
+                            className="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white px-3.5 py-2 rounded-xl text-xs font-bold shadow-xs transition hover:scale-105 active:scale-95 cursor-pointer"
+                        >
+                            <span>⚡ POS / Admin</span>
+                        </Link>
+
                         {/* Cart Button */}
                         <Link
                             to="/cart"
