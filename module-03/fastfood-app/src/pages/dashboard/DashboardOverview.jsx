@@ -1,8 +1,24 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useRestaurant } from "../../contextapi/RestaurantContext";
+import { useCart } from "../../contextapi/CartContext";
+import { seedFirestoreDatabase } from "../../firebase/seedFirestore";
 
 export default function DashboardOverview() {
     const { orders, analytics } = useRestaurant();
+    const { showToast } = useCart();
+    const [isSeeding, setIsSeeding] = useState(false);
+
+    const handleSeedData = async () => {
+        setIsSeeding(true);
+        const res = await seedFirestoreDatabase();
+        setIsSeeding(false);
+        if (res.success) {
+            showToast(`🔥 Firestore Seeded! Added ${res.menuCount} dishes, ${res.categoryCount} categories, and coupons.`, "success");
+        } else {
+            showToast(`Seed notice: ${res.error || "Completed with local fallback"}`, "info");
+        }
+    };
 
     const recentOrders = orders.slice(0, 5);
 
@@ -34,6 +50,14 @@ export default function DashboardOverview() {
                     </p>
                 </div>
                 <div className="flex items-center gap-3">
+                    <button
+                        type="button"
+                        onClick={handleSeedData}
+                        disabled={isSeeding}
+                        className="bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 font-bold text-xs px-3.5 py-2.5 rounded-xl transition cursor-pointer flex items-center gap-1.5"
+                    >
+                        <span>{isSeeding ? "⏳ Seeding..." : "🌱 Seed Firestore"}</span>
+                    </button>
                     <Link
                         to="/dashboard/pos"
                         className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-md shadow-orange-500/20 flex items-center gap-2 cursor-pointer transition active:scale-95"

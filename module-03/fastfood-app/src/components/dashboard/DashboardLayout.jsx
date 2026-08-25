@@ -1,22 +1,28 @@
 import { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { useRestaurant } from "../../contextapi/RestaurantContext";
+import { useAuth } from "../../contextapi/AuthContext";
+import RoleBadge from "../auth/RoleBadge";
 
 export default function DashboardLayout() {
-    const { analytics } = useRestaurant();
+    const { analytics, isLiveFirestore } = useRestaurant();
+    const { role } = useAuth();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-    const navItems = [
-        { path: "/dashboard", label: "Overview & Sales", icon: "📊", badge: null },
-        { path: "/dashboard/pos", label: "POS Terminal", icon: "⚡", badge: "Live" },
+    const allNavItems = [
+        { path: "/dashboard", label: "Overview & Sales", icon: "📊", badge: null, roles: ["admin"] },
+        { path: "/dashboard/pos", label: "POS Terminal", icon: "⚡", badge: "Live", roles: ["admin", "cashier"] },
         {
             path: "/dashboard/orders",
             label: "Kitchen & Orders",
             icon: "👨‍🍳",
             badge: analytics.activeKitchenOrders > 0 ? `${analytics.activeKitchenOrders}` : null,
+            roles: ["admin", "cashier", "kitchen", "delivery"],
         },
-        { path: "/dashboard/menu", label: "Menu & Inventory", icon: "🍔", badge: null },
+        { path: "/dashboard/menu", label: "Menu & Inventory", icon: "🍔", badge: null, roles: ["admin"] },
     ];
+
+    const authorizedNavItems = allNavItems.filter((item) => item.roles.includes(role) || role === "admin");
 
     return (
         <div className="min-h-screen bg-slate-100 flex flex-col md:flex-row text-gray-900 font-sans">
@@ -31,12 +37,15 @@ export default function DashboardLayout() {
                     </span>
                 </Link>
 
-                <button
-                    onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                    className="p-2 rounded-lg bg-slate-800 text-gray-300 hover:text-white"
-                >
-                    ☰
-                </button>
+                <div className="flex items-center gap-2">
+                    <RoleBadge />
+                    <button
+                        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                        className="p-2 rounded-lg bg-slate-800 text-gray-300 hover:text-white"
+                    >
+                        ☰
+                    </button>
+                </div>
             </div>
 
             {/* Sidebar Navigation */}
@@ -46,8 +55,8 @@ export default function DashboardLayout() {
                 }`}
             >
                 <div className="space-y-6">
-                    {/* Brand */}
-                    <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+                    {/* Brand & Connection Badge */}
+                    <div className="pb-4 border-b border-slate-800 space-y-2">
                         <Link to="/dashboard" className="flex items-center gap-2.5">
                             <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center text-xl shadow-md">
                                 🔥
@@ -61,11 +70,19 @@ export default function DashboardLayout() {
                                 </span>
                             </div>
                         </Link>
+
+                        <div className="flex items-center justify-between text-[10px] bg-slate-950 p-2 rounded-xl border border-slate-800">
+                            <span className="text-gray-400">Database:</span>
+                            <span className={`font-bold flex items-center gap-1 ${isLiveFirestore ? "text-emerald-400" : "text-amber-400"}`}>
+                                <span className={`w-1.5 h-1.5 rounded-full ${isLiveFirestore ? "bg-emerald-400" : "bg-amber-400"} animate-pulse`}></span>
+                                {isLiveFirestore ? "Cloud Firestore Live" : "Local Sync Mode"}
+                            </span>
+                        </div>
                     </div>
 
                     {/* Navigation Links */}
                     <nav className="space-y-1.5">
-                        {navItems.map((item) => (
+                        {authorizedNavItems.map((item) => (
                             <NavLink
                                 key={item.path}
                                 to={item.path}
@@ -102,14 +119,8 @@ export default function DashboardLayout() {
                         <span>🌐 View Online Store</span>
                     </Link>
 
-                    <div className="flex items-center gap-2.5 p-2 bg-slate-950/60 rounded-xl">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-400 to-orange-500 text-slate-950 font-bold text-xs flex items-center justify-center">
-                            A
-                        </div>
-                        <div className="flex-1 text-[11px] overflow-hidden">
-                            <div className="font-bold text-white truncate">Manager Admin</div>
-                            <div className="text-[10px] text-gray-500 truncate">Store #01 • Lahore</div>
-                        </div>
+                    <div className="pt-1">
+                        <RoleBadge />
                     </div>
                 </div>
             </aside>

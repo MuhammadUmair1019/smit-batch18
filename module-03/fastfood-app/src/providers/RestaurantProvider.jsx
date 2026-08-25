@@ -1,4 +1,16 @@
 import { useState, useEffect, useMemo } from "react";
+import {
+    collection,
+    onSnapshot,
+    doc,
+    setDoc,
+    updateDoc,
+    deleteDoc,
+    serverTimestamp,
+    query,
+    orderBy,
+} from "firebase/firestore";
+import { db } from "../firebase/config";
 import { RestaurantContext } from "../contextapi/RestaurantContext";
 import { products as initialProducts } from "../data/products";
 
@@ -78,34 +90,10 @@ const sampleInitialOrders = [
         cashTendered: 2202,
         changeDue: 0,
     },
-    {
-        orderId: "FB-90209",
-        customerName: "Ayesha Malik",
-        phone: "0345-5566778",
-        address: "Sector Y, Phase 3, DHA",
-        orderType: "delivery",
-        tableNo: null,
-        source: "online",
-        status: "completed",
-        paymentMethod: "card",
-        paymentStatus: "paid",
-        notes: "",
-        placedAt: "13:10",
-        items: [
-            { id: 6, title: "Chicken Fajita Pizza", price: 1499, quantity: 1, drink: "Coca Cola" },
-        ],
-        subtotal: 1499,
-        discount: 0,
-        tax: 75,
-        deliveryFee: 0,
-        totalAmount: 1574,
-        cashTendered: 1574,
-        changeDue: 0,
-    },
 ];
 
 export default function RestaurantProvider({ children }) {
-    // 1. Centralized Menu items (with persistence)
+    // 1. Menu Items State (Syncs with Firestore 'menu' collection)
     const [menuItems, setMenuItems] = useState(() => {
         try {
             const saved = localStorage.getItem("flamebite_menu");
@@ -115,7 +103,7 @@ export default function RestaurantProvider({ children }) {
         }
     });
 
-    // 2. Centralized Orders (with persistence)
+    // 2. Orders State (Syncs with Firestore 'orders' collection)
     const [orders, setOrders] = useState(() => {
         try {
             const saved = localStorage.getItem("flamebite_orders");
@@ -125,35 +113,100 @@ export default function RestaurantProvider({ children }) {
         }
     });
 
-    // Sync menu items
+    const [isLiveFirestore, setIsLiveFirestore] = useState(false);
+
+    // Real-time Firestore Listener for Menu Collection
+    useEffect(() => {
+        let unsubscribe;
+        try {
+            const menuCol = collection(db, "menu");
+            unsubscribe = onSnapshot(
+                menuCol,
+                (snapshot) => {
+                    if (!snapshot.empty) {
+                        const items = snapshot.docs.map((doc) => ({
+                            id: doc.id,
+                            ...doc.data(),
+                        }));
+                        setMenuItems(items);
+                        setIsLiveFirestore(true);
+                        localStorage.setItem("flamebite_menu", JSON.stringify(items));
+                    }
+                },
+                (err) => {
+                    console.warn("Firestore menu live listener fallback:", err.message);
+                }
+            );
+        } catch (err) {
+            console.warn("Menu Firestore init error:", err.message);
+        }
+
+        return () => {
+            if (unsubscribe) unsubscribe();
+        };
+    }, []);
+
+    // Real-time Firestore Listener for Orders Collection
+    useEffect(() => {
+        let unsubscribe;
+        try {
+            const ordersQuery = query(collection(db, "orders"), orderBy("createdAt", "desc"));
+            unsubscribe = onSnapshot(
+                ordersQuery,
+                (snapshot) => {
+                    if (!snapshot.empty) {
+                        const liveOrders = snapshot.docs.map((doc) => ({
+                            orderId: doc.id,
+                            ...doc.data(),
+                        }));
+                        setOrders(liveOrders);
+                        setIsLiveFirestore(true);
+                        localStorage.setItem("flamebite_orders", JSON.stringify(liveOrders));
+                    }
+                },
+                (err) => {
+                    console.warn("Firestore orders live listener fallback:", err.message);
+                }
+            );
+        } catch (err) {
+            console.warn("Orders Firestore init error:", err.message);
+        }
+
+        return () => {
+            if (unsubscribe) unsubscribe();
+        };
+    }, []);
+
+    // LocalStorage fallback sync
     useEffect(() => {
         try {
             localStorage.setItem("flamebite_menu", JSON.stringify(menuItems));
         } catch (err) {
-            console.error("Failed saving menu", err);
+            console.error("Failed saving menu to localStorage", err);
         }
     }, [menuItems]);
 
-    // Sync orders
     useEffect(() => {
         try {
             localStorage.setItem("flamebite_orders", JSON.stringify(orders));
         } catch (err) {
-            console.error("Failed saving orders", err);
+            console.error("Failed saving orders to localStorage", err);
         }
     }, [orders]);
 
-    // Create Order (called by online checkout & POS register)
-    const createOrder = (orderData) => {
+    // Create Order in Firestore & Local State
+    const createOrder = async (orderData) => {
+        const orderId = orderData.orderId || `FB-${Math.floor(100000 + Math.random() * 900000)}`;
         const newOrder = {
-            orderId: orderData.orderId || `FB-${Math.floor(100000 + Math.random() * 900000)}`,
+            orderId,
             customerName: orderData.customerName || "Walk-in Customer",
+            customerUid: orderData.customerUid || null,
             phone: orderData.phone || "N/A",
             address: orderData.address || "Dine-in / Counter",
             orderType: orderData.orderType || "takeaway",
             tableNo: orderData.tableNo || null,
             source: orderData.source || "pos", // 'pos' or 'online'
-            status: orderData.status || "in_kitchen", // 'pending', 'in_kitchen', 'ready', 'completed', 'cancelled'
+            status: orderData.status || "in_kitchen",
             paymentMethod: orderData.paymentMethod || "cash",
             paymentStatus: orderData.paymentStatus || "paid",
             notes: orderData.notes || "",
@@ -168,46 +221,101 @@ export default function RestaurantProvider({ children }) {
             changeDue: orderData.changeDue || 0,
         };
 
+        // Update local state immediately for instant UX
         setOrders((prev) => [newOrder, ...prev]);
+
+        // Attempt Firestore write
+        try {
+            await setDoc(doc(db, "orders", orderId), {
+                ...newOrder,
+                createdAt: serverTimestamp(),
+                updatedAt: serverTimestamp(),
+            });
+        } catch (err) {
+            console.warn("Could not write order to Firestore (stored locally):", err.message);
+        }
+
         return newOrder;
     };
 
-    // Update Order Status
-    const updateOrderStatus = (orderId, newStatus) => {
+    // Update Order Status in Firestore & Local State
+    const updateOrderStatus = async (orderId, newStatus) => {
         setOrders((prev) =>
             prev.map((o) => (o.orderId === orderId ? { ...o, status: newStatus } : o))
         );
+
+        try {
+            await updateDoc(doc(db, "orders", orderId), {
+                status: newStatus,
+                updatedAt: serverTimestamp(),
+            });
+        } catch (err) {
+            console.warn("Could not update order status in Firestore:", err.message);
+        }
     };
 
-    // Delete / Cancel Order
-    const cancelOrder = (orderId) => {
-        updateOrderStatus(orderId, "cancelled");
+    // Cancel Order
+    const cancelOrder = async (orderId) => {
+        await updateOrderStatus(orderId, "cancelled");
     };
 
-    // Menu CRUD Actions
-    const addMenuItem = (item) => {
+    // Menu CRUD Actions in Firestore & Local State
+    const addMenuItem = async (item) => {
+        const id = item.id ? item.id.toString() : Date.now().toString();
         const newItem = {
             ...item,
-            id: Date.now(),
+            id,
             rating: item.rating || 5.0,
+            isAvailable: true,
         };
+
         setMenuItems((prev) => [newItem, ...prev]);
+
+        try {
+            await setDoc(doc(db, "menu", id), {
+                ...newItem,
+                updatedAt: serverTimestamp(),
+            });
+        } catch (err) {
+            console.warn("Could not add menu item to Firestore (stored locally):", err.message);
+        }
     };
 
-    const updateMenuItem = (updatedItem) => {
+    const updateMenuItem = async (updatedItem) => {
+        const id = updatedItem.id.toString();
         setMenuItems((prev) =>
-            prev.map((item) => (item.id === updatedItem.id ? updatedItem : item))
+            prev.map((item) => (item.id.toString() === id ? updatedItem : item))
         );
+
+        try {
+            await setDoc(
+                doc(db, "menu", id),
+                {
+                    ...updatedItem,
+                    updatedAt: serverTimestamp(),
+                },
+                { merge: true }
+            );
+        } catch (err) {
+            console.warn("Could not update menu item in Firestore:", err.message);
+        }
     };
 
-    const deleteMenuItem = (id) => {
-        setMenuItems((prev) => prev.filter((item) => item.id !== id));
+    const deleteMenuItem = async (id) => {
+        const strId = id.toString();
+        setMenuItems((prev) => prev.filter((item) => item.id.toString() !== strId));
+
+        try {
+            await deleteDoc(doc(db, "menu", strId));
+        } catch (err) {
+            console.warn("Could not delete menu item from Firestore:", err.message);
+        }
     };
 
     // Analytics computation
     const analytics = useMemo(() => {
         const validOrders = orders.filter((o) => o.status !== "cancelled");
-        const totalRevenue = validOrders.reduce((sum, o) => sum + (o.totalAmount || 0), 0);
+        const totalRevenue = validOrders.reduce((sum, o) => sum + (Number(o.totalAmount) || 0), 0);
         const totalOrders = validOrders.length;
         const activeKitchenOrders = orders.filter(
             (o) => o.status === "in_kitchen" || o.status === "pending"
@@ -219,12 +327,12 @@ export default function RestaurantProvider({ children }) {
         // Calculate item popularity
         const itemFrequency = {};
         validOrders.forEach((o) => {
-            o.items.forEach((it) => {
+            o.items?.forEach((it) => {
                 if (!itemFrequency[it.title]) {
                     itemFrequency[it.title] = { count: 0, revenue: 0, title: it.title, price: it.price };
                 }
-                itemFrequency[it.title].count += it.quantity;
-                itemFrequency[it.title].revenue += it.price * it.quantity;
+                itemFrequency[it.title].count += Number(it.quantity) || 1;
+                itemFrequency[it.title].revenue += (Number(it.price) || 0) * (Number(it.quantity) || 1);
             });
         });
 
@@ -248,6 +356,7 @@ export default function RestaurantProvider({ children }) {
             value={{
                 menuItems,
                 orders,
+                isLiveFirestore,
                 createOrder,
                 updateOrderStatus,
                 cancelOrder,

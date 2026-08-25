@@ -6,6 +6,7 @@ import Cart from "../pages/Cart";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Toast from "../components/Toast";
+import ProtectedRoute from "../components/auth/ProtectedRoute";
 
 // Dashboard Pages & Layout
 import DashboardLayout from "../components/dashboard/DashboardLayout";
@@ -62,30 +63,37 @@ function MainRouter() {
                 }
             />
 
-            {/* 2. Standalone Fullscreen POS Terminal */}
+            {/* 2. Standalone Fullscreen POS Terminal (Restricted to Admin & Cashier) */}
             <Route
                 path="/dashboard/pos"
                 element={
-                    <>
+                    <ProtectedRoute allowedRoles={["admin", "cashier"]}>
                         <PosTerminal />
                         <Toast />
-                    </>
+                    </ProtectedRoute>
                 }
             />
 
-            {/* 3. Dashboard Shell Routes */}
+            {/* 3. Dashboard Shell Routes (Restricted to Staff Roles) */}
             <Route
                 path="/dashboard"
                 element={
-                    <>
+                    <ProtectedRoute allowedRoles={["admin", "cashier", "kitchen", "delivery"]}>
                         <DashboardLayout />
                         <Toast />
-                    </>
+                    </ProtectedRoute>
                 }
             >
                 <Route index element={<DashboardOverview />} />
                 <Route path="orders" element={<OrdersManager />} />
-                <Route path="menu" element={<MenuManager />} />
+                <Route
+                    path="menu"
+                    element={
+                        <ProtectedRoute allowedRoles={["admin"]}>
+                            <MenuManager />
+                        </ProtectedRoute>
+                    }
+                />
             </Route>
 
             {/* Fallback */}

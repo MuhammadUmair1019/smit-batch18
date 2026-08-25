@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useCart } from "../contextapi/CartContext";
+import RoleBadge from "./auth/RoleBadge";
 
 export default function Navbar() {
     const { cartCount, totalCartPrice } = useCart();
@@ -83,6 +84,9 @@ export default function Navbar() {
                             </svg>
                             <span>Search food...</span>
                         </Link>
+
+                        {/* RBAC Role & User Profile Badge */}
+                        <RoleBadge />
 
                         {/* POS / Admin Dashboard Link */}
                         <Link
