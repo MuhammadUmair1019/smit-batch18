@@ -1,7 +1,7 @@
 const express = require("express");
 
 const app = express();
-const PORT = 3000;
+const PORT = 8089;
 
 // Middleware to parse JSON
 app.use(express.json());
@@ -12,8 +12,34 @@ let users = [
     { id: 2, name: "Sara", email: "sara@example.com" },
 ];
 
+function myMiddlware(req, res, next) {
+    console.log(`${req.method} request made to ${req.url}`);
+
+    req.userId = "245656xc";
+
+    req.requestTime = D
+    ate.now()
+
+    next()
+}
+
+app.use(myMiddlware)
+
+// GET - Get all users
+app.get("/", (req, res) => {
+    // console.log("req -->", req)
+    console.log('req.userId ->', req.userId)
+    console.log(req.requestTime)
+    res.json({ message: "Hello World" });
+});
+
+
+
+
 // GET - Get all users
 app.get("/users", (req, res) => {
+
+
     res.json(users);
 });
 
