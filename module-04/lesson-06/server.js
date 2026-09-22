@@ -2,13 +2,26 @@ import express from 'express';
 import mongoose from 'mongoose';
 import User from './models/user.js';
 
+import userRoutes from "./routes/userRoutes.js";
+
 const port = 4000;
 const app = express();
 
 app.use(express.json())
 
+app.get('/', (req, res) => {
+    res.json({ message: 'OK' })
+})
+
+// User Routes 
+app.use('/users', userRoutes)
+
+// app.get('/', (req, res) => {
+//     res.json({ message: 'OK' })
+// })
+
 // CREATE
-app.post("/", async (req, res) => {
+app.post("/users", async (req, res) => {
     try {
         const user = await User.create(req.body);
 
@@ -19,18 +32,18 @@ app.post("/", async (req, res) => {
 });
 
 // READ - Get all users
-app.get("/", async (req, res) => {
-    try {
-        const users = await User.find();
+// app.get("/users", async (req, res) => {
+//     try {
+//         const users = await User.find();
 
-        res.json(users);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
+//         res.json(users);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
 
 // READ - Get one user
-app.get("/:id", async (req, res) => {
+app.get("/users/:id", async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
 
@@ -45,7 +58,7 @@ app.get("/:id", async (req, res) => {
 });
 
 // UPDATE
-app.put("/:id", async (req, res) => {
+app.put("/users/:id", async (req, res) => {
     try {
         const user = await User.findByIdAndUpdate(
             req.params.id,
@@ -67,7 +80,7 @@ app.put("/:id", async (req, res) => {
 });
 
 // DELETE
-app.delete("/:id", async (req, res) => {
+app.delete("/users/:id", async (req, res) => {
     try {
         const user = await User.findByIdAndDelete(req.params.id);
 
