@@ -1,37 +1,34 @@
-import { configDotenv } from 'dotenv';
-import express from 'express';
+import { configDotenv } from "dotenv";
+import express from "express";
 
-// imports 
-import connectDB from './src/config/db.js';
+import connectDB from "./src/config/db.js";
+import userRoutes from "./src/routes/userRoutes.js";
 
-import userRoutes from './src/routes/userRoutes.js';
-
-// init
 configDotenv();
 
-const port = 8089;
 const app = express();
 
-// Middleware 
-app.use(express.json())
+app.use(express.json());
 
-// Routes
-app.get('/', (req, res) => {
-    res.json({ message: 'OK' })
-})
+app.get("/", (req, res) => {
+    res.json({
+        message: "OK"
+    });
+});
 
+// app.use("/users", userRoutes);
 
-// User Routes
-app.use('/users', userRoutes)
-
-// Product Routes 
+app.use(userRoutes)
 
 
+const port = process.env.PORT || 8089;
 
+const startServer = async () => {
+    await connectDB();
 
+    app.listen(port, () => {
+        console.log(`Server listening on ${port}`);
+    });
+};
 
-app.listen(port, () => {
-    console.log(`Server listing on ${port}`)
-})
-
-connectDB()
+startServer();
