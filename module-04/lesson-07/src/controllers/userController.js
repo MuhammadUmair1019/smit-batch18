@@ -96,8 +96,6 @@ export const deleteUser = async (req, res) => {
 };
 
 
-
-
 // Register
 export const registerUser = async (req, res) => {
     try {
@@ -177,7 +175,8 @@ export const login = async (req, res) => {
 
         const token = jwt.sign(
             {
-                userId: user._id
+                userId: user._id,
+                city: "Karachi"
             },
             process.env.JWT_SECRET,
             {

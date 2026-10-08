@@ -1,4 +1,4 @@
-import express from "express";
+import express from "express"
 
 import {
     createUser,
@@ -14,11 +14,11 @@ import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-
 // Auth 
 
 router.post("/register", registerUser)
 router.post("/login", login)
+
 
 router.get('/profile', authMiddleware, getProfile)
 
