@@ -55,7 +55,7 @@ Each module may have `*.routes`, `*.controller`, `*.service`/`use-case`, `*.repo
 ## Authentication and authorization
 
 - Password hashes use bcrypt with a configurable work factor and never leave persistence.
-- JWT bearer access tokens have explicit issuer, audience, expiry, and signing algorithm configuration. Use a signing key from secrets, not a default.
+- JWT bearer access tokens use a 15-minute expiry by default and have explicit issuer, audience, and signing algorithm configuration. Use a signing key from secrets, not a default. Authentication checks the user's token version against MongoDB so logout, password change, and blocking revoke issued tokens.
 - Middleware verifies the token and account state and attaches a minimal authenticated principal.
 - Role checks are followed by ownership checks in the use case/repository query. A role alone never grants cross-restaurant access.
 - Public registration is customer-only. Privileged account provisioning is unresolved.

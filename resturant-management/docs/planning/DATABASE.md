@@ -24,7 +24,7 @@ MongoDB stores cart items and order items as embedded subdocuments, so `CART_ITE
 
 ## Collections and fields
 
-Conventions: MongoDB `_id` ObjectId primary key; UTC `createdAt`/`updatedAt`; money stored as integer minor units (for example, paisa) to avoid floating-point errors, subject to confirmation of currency. `createdBy`/`updatedBy` are ObjectId references on administratively managed records where useful. Mongoose timestamps are enabled. Soft deletion uses `deletedAt` (nullable); deactivation uses `isActive`/`isAvailable` and is distinct from deletion.
+Conventions: MongoDB `_id` ObjectId primary key; UTC `createdAt`/`updatedAt`; money stored as integer paisa for the approved PKR currency to avoid floating-point errors. `createdBy`/`updatedBy` are ObjectId references on administratively managed records where useful. Mongoose timestamps are enabled. Soft deletion uses `deletedAt` (nullable); deactivation uses `isActive`/`isAvailable` and is distinct from deletion.
 
 ### users
 
@@ -45,7 +45,7 @@ Indexes: unique `{ email: 1 }`; `{ role: 1, status: 1 }` for admin filters. Emai
 
 ### restaurants
 
-`name` (required string), `description` (nullable string), `ownerUserId` (required User ref), `phone`/`email` (nullable strings), `address` (proposed structured object: address lines, city, postal code, country), `city` (required for current filter), `image` (nullable provider asset metadata), `openingTime`/`closingTime` (nullable local-time strings pending schedule model), `timeZone` (required if hours drive open status), `isOpen` (computed/live status versus manually controlled is unresolved), `isActive` (boolean, default true), timestamps, `createdBy`/`updatedBy`, `deletedAt` (nullable).
+`name` (required string), `description` (nullable string), `ownerUserId` (required User ref), `phone`/`email` (nullable strings), `address` (structured object: address lines, city, postal code, country), `city` (required for current filter), `deliveryFeePaisa` (required nonnegative integer configured per restaurant), `image` (nullable provider asset metadata), `openingHours` (weekly schedule, each entry with weekday and local opening/closing times), `timeZone` (required IANA timezone; open status is derived), `isActive` (boolean, default true), timestamps, `createdBy`/`updatedBy`, `deletedAt` (nullable).
 
 Indexes: `{ isActive: 1, city: 1, name: 1 }`; text/search index or Atlas Search decision pending; `{ ownerUserId: 1, isActive: 1 }`.
 
@@ -57,9 +57,9 @@ Indexes: unique active category `{ restaurantId: 1, normalizedName: 1 }` (partia
 
 ### menu_items
 
-`restaurantId` (required Restaurant ref), `categoryId` (required Category ref), `name` (required), `description` (nullable), `priceMinor` (required integer > 0), `discountPriceMinor` (nullable; if supplied must be positive and below price), `image` (nullable), `ingredients` (array of strings, default empty), `isAvailable` (boolean default true), `preparationTimeMinutes` (nullable positive integer), timestamps, audit refs, `deletedAt` (nullable).
+`restaurantId` (required Restaurant ref), `categoryId` (required Category ref), `name` (required), `description` (nullable), `pricePaisa` (required integer > 0), `discountPricePaisa` (nullable; if supplied must be positive and below price), `image` (nullable), `ingredients` (array of strings, default empty), `isAvailable` (boolean default true), `preparationTimeMinutes` (nullable positive integer), timestamps, audit refs, `deletedAt` (nullable).
 
-Indexes: `{ restaurantId: 1, categoryId: 1, isAvailable: 1 }`, `{ restaurantId: 1, priceMinor: 1 }`, active name/search index according to search decision. Enforce category and item restaurant match in the application service; MongoDB cannot express this cross-document foreign key.
+Indexes: `{ restaurantId: 1, categoryId: 1, isAvailable: 1 }`, `{ restaurantId: 1, pricePaisa: 1 }`, active name/search index according to search decision. Enforce category and item restaurant match in the application service; MongoDB cannot express this cross-document foreign key.
 
 ### carts
 
@@ -69,7 +69,7 @@ Indexes: unique `{ userId: 1 }`; `{ restaurantId: 1 }` only if operationally use
 
 ### orders
 
-`orderNumber` (required unique human-readable ID), `userId`, `restaurantId` (required refs), `items` embedded immutable snapshots `{ menuItemId: nullable ObjectId, name, unitPriceMinor, quantity, lineSubtotalMinor }`, `deliveryAddress` snapshot (structured, required for delivery), `phone` snapshot, `subtotalMinor`, `deliveryFeeMinor`, `discountMinor`, `totalMinor`, `currency`, `paymentMethod` enum (at least `cash`; online options unresolved), `paymentStatus` enum (`pending`, `paid`, `failed`, `refunded`), `orderStatus` enum (`pending`, `confirmed`, `preparing`, `ready`, `out_for_delivery`, `delivered`, `cancelled`, `rejected`), `notes` nullable, timestamps, `cancelledAt` nullable, and `statusHistory` embedded bounded entries `{ from, to, actorUserId, at, reason? }`.
+`orderNumber` (required unique human-readable ID), `userId`, `restaurantId` (required refs), `items` embedded immutable snapshots `{ menuItemId: nullable ObjectId, name, unitPricePaisa, quantity, lineSubtotalPaisa }`, `deliveryAddress` snapshot (structured, required for delivery), `phone` snapshot, `subtotalPaisa`, `deliveryFeePaisa` (snapshot of restaurant fee at checkout), `discountPaisa`, `totalPaisa`, `currency` (fixed to approved `PKR` in v1), `paymentMethod` enum (`cash`), `paymentStatus` enum (`pending`, `paid`, `failed`, `refunded`; cash becomes paid when delivered), `orderStatus` enum (`pending`, `confirmed`, `preparing`, `ready`, `out_for_delivery`, `delivered`, `cancelled`, `rejected`), `notes` nullable, timestamps, `cancelledAt` nullable, and `statusHistory` embedded bounded entries `{ from, to, actorUserId, at, reason? }`.
 
 Indexes: unique `{ orderNumber: 1 }`; `{ userId: 1, createdAt: -1 }`; `{ restaurantId: 1, orderStatus: 1, createdAt: -1 }`; optional `{ restaurantId: 1, orderNumber: 1 }` search. Index date/status fields used by admin statistics.
 
@@ -79,7 +79,7 @@ Coupons/redemptions, reviews, favorites, saved addresses, notifications, and pay
 
 ## Relationships and deletion policy
 
-- User owns zero or more restaurants per ERD; supplied model implies an owner per restaurant but does not limit admins to one restaurant. Confirm whether one admin can own/manage multiple.
+- User owns zero or more restaurants; approved rule allows an admin to manage multiple restaurants. V1 assigns one owner/admin per restaurant; multi-admin assignment to one restaurant is not yet specified.
 - Category and menu item each belong to one restaurant; a menu item's category must belong to the same restaurant.
 - Order belongs to one customer and one restaurant. Order snapshots survive menu/user/restaurant deactivation.
 - Cart is one per user and holds one restaurant. A cart does not guarantee reserved stock or price.

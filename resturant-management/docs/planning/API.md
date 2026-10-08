@@ -10,19 +10,19 @@ All paths use `/api`. JSON responses use `{ success, message, data }`; paginated
 | --- | --- | --- | --- |
 | `POST /auth/register` | Public; customer only | name, email, password, phone; normalized unique email, password policy | 201 user-safe object + access token |
 | `POST /auth/login` | Public, rate limited | email/password | 200 user-safe object + access token |
-| `POST /auth/logout` | Authenticated | Token/session revocation contract pending | 200 or 204 |
+| `POST /auth/logout` | Authenticated | Revokes all existing tokens for the current user by incrementing token version | 200 |
 | `GET /users/me` | Any authenticated role | Bearer token | 200 safe current user |
 | `PATCH /users/me` | Any authenticated role | Allowlisted name/phone only | 200 safe updated user |
-| `PATCH /users/change-password` | Any authenticated role | currentPassword, newPassword | 200; revocation policy pending |
+| `PATCH /users/change-password` | Any authenticated role | currentPassword, newPassword | 200; revokes existing tokens and requires login again |
 
 ## Restaurants
 
 | Method / path | Access | Inputs and validation | Success |
 | --- | --- | --- | --- |
 | `GET /restaurants` | Public | `page`, `limit`, `search`, `city`, `open`; only public active/nondeleted records | 200 paginated restaurants |
-| `POST /restaurants` | Restaurant admin or super admin | restaurant fields; owner assignment is server-controlled | 201 restaurant |
+| `POST /restaurants` | Restaurant admin or super admin | restaurant fields including nonnegative integer `deliveryFeePaisa`, weekly `openingHours`, and IANA `timeZone`; owner assignment is server-controlled | 201 restaurant |
 | `GET /restaurants/:restaurantId` | Public | valid ID; public view excludes inactive/private fields | 200 restaurant with categories/menu summary; response size strategy pending |
-| `PATCH /restaurants/:restaurantId` | Assigned restaurant admin or super admin | allowlisted partial fields | 200 restaurant |
+| `PATCH /restaurants/:restaurantId` | Assigned restaurant admin or super admin | allowlisted partial fields, including delivery fee and schedule | 200 restaurant |
 | `DELETE /restaurants/:restaurantId` | Super admin; proposed soft delete/deactivate | valid ID; preserve orders | 200/204; choose contract |
 
 ## Categories
@@ -64,7 +64,7 @@ All paths use `/api`. JSON responses use `{ success, message, data }`; paginated
 | `GET /orders/my-orders` | Customer | page, limit, status filter | 200 paginated own orders |
 | `GET /orders/:orderId` | Customer owner, assigned restaurant admin, or super admin | valid ID and scoped authorization | 200 order |
 | `PATCH /orders/:orderId/cancel` | Customer owner; super admin policy pending | optional reason; only allowed pre-fulfillment states | 200 updated order or 409 |
-| `PATCH /orders/:orderId/status` | Assigned restaurant admin or super admin | `{ status }`; validate transition, scope, and current state | 200 updated order |
+| `PATCH /orders/:orderId/status` | Assigned restaurant admin or super admin | `{ status }`; sequential transition and scope validation; marking `delivered` also marks cash payment `paid` atomically | 200 updated order |
 | `GET /restaurants/:restaurantId/orders` | Assigned restaurant admin or super admin | page, limit, status, `from`, `to`, order-number search | 200 paginated orders |
 
 ## Administration

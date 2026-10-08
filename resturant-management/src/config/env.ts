@@ -7,6 +7,10 @@ const environmentSchema = z.object({
   HOST: z.string().min(1).default('127.0.0.1'),
   CLIENT_URL: z.string().url().default('http://localhost:3000'),
   MONGODB_URI: z.string().min(1),
+  JWT_SECRET: z.string().min(32),
+  JWT_EXPIRES_IN: z.string().default('15m'),
+  JWT_ISSUER: z.string().min(1).default('restaurant-management-api'),
+  JWT_AUDIENCE: z.string().min(1).default('restaurant-management-client'),
   LOG_LEVEL: z.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent']).default('info'),
   JSON_BODY_LIMIT: z.string().min(1).default('1mb'),
 });

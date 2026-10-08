@@ -5,6 +5,10 @@ declare global {
   namespace Express {
     interface Request {
       requestId: string;
+      authUser?: {
+        id: string;
+        role: 'customer' | 'restaurant_admin' | 'super_admin';
+      };
     }
   }
 }

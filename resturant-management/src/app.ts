@@ -7,6 +7,8 @@ import { errorHandler, notFoundHandler } from './shared/http/error-handler';
 import { requestIdMiddleware } from './shared/http/request-id';
 import { logger } from './shared/logger';
 import { isDatabaseReady } from './infrastructure/database/mongoose';
+import { authRoutes } from './modules/auth/auth.routes';
+import { userRoutes } from './modules/users/user.routes';
 
 export function createApp() {
   const app = express();
@@ -30,6 +32,8 @@ export function createApp() {
     });
   });
 
+  app.use('/api/auth', authRoutes);
+  app.use('/api/users', userRoutes);
   app.use('/api', notFoundHandler);
   app.use(notFoundHandler);
   app.use(errorHandler);

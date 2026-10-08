@@ -12,7 +12,8 @@ Initial service foundation for the Restaurant Backend API. Architecture and requ
 1. Install dependencies with `npm install`.
 2. Copy `.env.example` to `.env` and update `MONGODB_URI` if needed.
 3. Start MongoDB.
-4. Run `npm run start:dev` (or `npm run dev`) while developing and testing APIs. Nodemon watches TypeScript source files, runs them through `tsx`, and restarts the server when they change; no build is needed between changes.
+4. Run `npm run migrate` to create the versioned database indexes.
+5. Run `npm run start:dev` (or `npm run dev`) while developing and testing APIs. Nodemon watches TypeScript source files, runs them through `tsx`, and restarts the server when they change; no build is needed between changes.
 
 The service listens on the configured `HOST` and `PORT`. Liveness is available at `/health/live`; readiness, including database connectivity, is available at `/health/ready`.
 
