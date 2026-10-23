@@ -20,8 +20,8 @@ All paths use `/api`. JSON responses use `{ success, message, data }`; paginated
 | Method / path | Access | Inputs and validation | Success |
 | --- | --- | --- | --- |
 | `GET /restaurants` | Public | `page`, `limit`, `search`, `city`, `open`; only public active/nondeleted records | 200 paginated restaurants |
-| `POST /restaurants` | Restaurant admin or super admin | restaurant fields including nonnegative integer `deliveryFeePaisa`, weekly `openingHours`, and IANA `timeZone`; owner assignment is server-controlled | 201 restaurant |
-| `GET /restaurants/:restaurantId` | Public | valid ID; public view excludes inactive/private fields | 200 restaurant with categories/menu summary; response size strategy pending |
+| `POST /restaurants` | Restaurant admin or super admin | restaurant fields including nonnegative PKR `deliveryFee`, weekly `openingHours`, and IANA `timeZone`; owner assignment is server-controlled | 201 restaurant |
+| `GET /restaurants/:restaurantId` | Public | valid ID; public view excludes inactive/private fields | 200 restaurant with active categories and up to 100 available menu items; `catalogTruncated` indicates omitted results |
 | `PATCH /restaurants/:restaurantId` | Assigned restaurant admin or super admin | allowlisted partial fields, including delivery fee and schedule | 200 restaurant |
 | `DELETE /restaurants/:restaurantId` | Super admin; proposed soft delete/deactivate | valid ID; preserve orders | 200/204; choose contract |
 
@@ -29,18 +29,18 @@ All paths use `/api`. JSON responses use `{ success, message, data }`; paginated
 
 | Method / path | Access | Inputs and validation | Success |
 | --- | --- | --- | --- |
-| `GET /restaurants/:restaurantId/categories` | Public | pagination optional; public active categories | 200 list |
+| `GET /restaurants/:restaurantId/categories` | Public | `page`, `limit`; public active categories | 200 paginated list |
 | `POST /restaurants/:restaurantId/categories` | Assigned restaurant admin or super admin | name, description, image, sortOrder | 201 category |
 | `GET /categories/:categoryId` | Public | valid ID; active/public view | 200 category |
 | `PATCH /categories/:categoryId` | Assigned restaurant admin or super admin | allowlisted fields | 200 category |
-| `DELETE /categories/:categoryId` | Assigned restaurant admin or super admin | behavior with existing menu items requires decision | 200/204 |
+| `DELETE /categories/:categoryId` | Assigned restaurant admin or super admin | soft-delete category and set its menu items unavailable | 200/204 |
 
 ## Menu
 
 | Method / path | Access | Inputs and validation | Success |
 | --- | --- | --- | --- |
-| `GET /restaurants/:restaurantId/menu` | Public | `page`, `limit`, `category`, `search`, `minPrice`, `maxPrice`, `available`; validate range and category tenant | 200 paginated active menu |
-| `POST /restaurants/:restaurantId/menu` | Assigned restaurant admin or super admin | category, name, price, optional discount/image/ingredients/preparation time | 201 item |
+| `GET /restaurants/:restaurantId/menu` | Public | `page`, `limit`, `category`, `search`, `minPrice`, `maxPrice` in PKR, `available`; validate range and category tenant | 200 paginated available menu by default |
+| `POST /restaurants/:restaurantId/menu` | Assigned restaurant admin or super admin | `categoryId`, name, PKR `price` and optional `discountPrice` (up to two decimal places), image/ingredients/preparation time | 201 item |
 | `GET /menu/:menuItemId` | Public | valid ID; respect restaurant/item visibility | 200 item |
 | `PATCH /menu/:menuItemId` | Assigned restaurant admin or super admin | allowlisted fields; price constraints | 200 item |
 | `DELETE /menu/:menuItemId` | Assigned restaurant admin or super admin | soft-delete/deactivate; preserve order snapshots | 200/204 |
@@ -83,4 +83,4 @@ All paths use `/api`. JSON responses use `{ success, message, data }`; paginated
 
 ## API decisions still needed
 
-Currency and minor-unit rules, response shape for restaurant detail, open status semantics, coupon/discount support, validation status mapping, delete response convention, idempotency key contract, and logout/session revocation strategy.
+Coupon support (menu discount prices are supported), delete response convention for future APIs, checkout idempotency key contract, and order retention policy.

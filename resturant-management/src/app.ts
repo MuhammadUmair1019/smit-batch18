@@ -9,6 +9,8 @@ import { logger } from './shared/logger';
 import { isDatabaseReady } from './infrastructure/database/mongoose';
 import { authRoutes } from './modules/auth/auth.routes';
 import { userRoutes } from './modules/users/user.routes';
+import { restaurantRoutes } from './modules/restaurants/restaurant.routes';
+import { catalogRoutes } from './modules/catalog/catalog.routes';
 
 export function createApp() {
   const app = express();
@@ -34,6 +36,8 @@ export function createApp() {
 
   app.use('/api/auth', authRoutes);
   app.use('/api/users', userRoutes);
+  app.use('/api/restaurants', restaurantRoutes);
+  app.use('/api', catalogRoutes);
   app.use('/api', notFoundHandler);
   app.use(notFoundHandler);
   app.use(errorHandler);

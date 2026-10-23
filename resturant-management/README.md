@@ -13,7 +13,8 @@ Initial service foundation for the Restaurant Backend API. Architecture and requ
 2. Copy `.env.example` to `.env` and update `MONGODB_URI` if needed.
 3. Start MongoDB.
 4. Run `npm run migrate` to create the versioned database indexes.
-5. Run `npm run start:dev` (or `npm run dev`) while developing and testing APIs. Nodemon watches TypeScript source files, runs them through `tsx`, and restarts the server when they change; no build is needed between changes.
+5. Optionally set `SEED_PASSWORD` (at least 8 characters) and `SEED_DELIVERY_FEE_PAISA`, then run `npm run seed` to create local sample data. The seed command refuses to run in production.
+6. Run `npm run start:dev` (or `npm run dev`) while developing and testing APIs. Nodemon watches TypeScript source files, runs them through `tsx`, and restarts the server when they change; no build is needed between changes.
 
 The service listens on the configured `HOST` and `PORT`. Liveness is available at `/health/live`; readiness, including database connectivity, is available at `/health/ready`.
 
@@ -22,6 +23,8 @@ The service listens on the configured `HOST` and `PORT`. Liveness is available a
 - `npm run start:dev` / `npm run dev` — nodemon development server with reload; use this for API testing
 - `npm run typecheck` — TypeScript validation
 - `npm run build` — compile to `dist/`
+- `npm run migrate` — apply versioned database indexes
+- `npm run seed` — insert local demo users, restaurants, categories, and menu items (requires seed environment variables)
 - `npm start` — run the compiled server from `dist/` (build first; intended for production)
 
 Do not commit `.env` or real credentials. The API contract and unresolved product decisions are tracked in `docs/planning`.

@@ -12,6 +12,7 @@
     "build": "tsc -p tsconfig.json",
     "start": "node dist/server.js",
     "migrate": "tsx src/infrastructure/database/migrate.ts",
+    "seed": "tsx src/infrastructure/database/seed.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {

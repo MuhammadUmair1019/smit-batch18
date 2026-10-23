@@ -10,6 +10,7 @@ These are recommendations, not approved business rules.
 | Public registration | Creates customer only | Explicitly required; admins are provisioned by super admin/seed. |
 | Restaurant admin scope | **Approved:** super admin provisions restaurant admins; `ownerUserId` references one admin, and each admin may own/manage multiple restaurants; ownership checks apply to every operation | User confirmed provisioning and multi-restaurant admins. Multiple admins assigned to the same restaurant remain unspecified; v1 proposes one owner per restaurant. |
 | Currency | **Approved:** PKR, stored as integer paisa | Confirmed by user. Tax/service-fee rules remain unspecified. |
+| API money representation | **Approved by delegation:** expose PKR amounts as decimal rupee numbers and convert to integer paisa for storage | User asked for the recommended choice; this follows supplied request examples while preserving integer storage. |
 | Cart price | Store item IDs/quantities; calculate current prices on read and checkout | Requirement says never trust client price, but whether to show price-change warnings is unspecified. |
 | Cart restaurant switch | Reject adding a second restaurant and ask customer to clear/switch cart | Requirement says one restaurant at a time but not replacement behavior. |
 | Checkout | Atomic order creation + cart clear via MongoDB transaction; idempotency key | Transactions require replica set; retry/concurrency behavior unspecified. |
@@ -17,7 +18,7 @@ These are recommendations, not approved business rules.
 | Delivery fee | **Approved:** one flat fee per restaurant; store as integer paisa | The fee amount is configured as part of restaurant setup; taxes/service fees are not included in v1. |
 | Payment | **Approved:** cash only in v1; mark paid when delivered; online payment deferred | — |
 | Restaurant open state | **Approved:** derive status from weekly opening hours and restaurant timezone | Holiday exceptions, overnight ranges, and manual override remain unspecified. |
-| Deletion | Deactivate/soft-delete restaurants/categories/items; preserve orders | Categories with menu items and retention/privacy requirements are unspecified. |
+| Deletion | Deactivate/soft-delete restaurants/categories/items; preserve orders. **Approved:** category deletion soft-deletes the category and deactivates its menu items. | User confirmed category behavior. User/order retention requirements remain open. |
 | Cancellation | **Approved:** customer may cancel `pending` or `confirmed`; restaurant admin may reject `pending` | Cancellation reason and any refund behavior are not applicable to cash v1 but may be revisited. |
 | Order transitions | **Approved:** sequential `pending -> confirmed -> preparing -> ready -> out_for_delivery -> delivered`; restaurant admin performs transitions; reject from `pending` | Exception handling and actor for delivered confirmation can be refined later. |
 | Auth/session | **Approved:** JWT is revoked on logout, password change, or account block; use a token version on the user record (logout revokes all of that user's tokens) | Current-token-only versus all-session logout was not specified; global per-user revocation is proposed for simple reliable v1 behavior. |
@@ -37,7 +38,7 @@ These are recommendations, not approved business rules.
 7. **Cart switching:** Approved mixed-restaurant adds are rejected; customer must clear existing cart before adding another restaurant.
 8. **Hours/open status:** Approved weekly schedules with timezone. Holiday exceptions and manual overrides are not in v1 unless requested.
 9. **Order lifecycle:** Approved sequential documented flow; customer cancellation in `pending`/`confirmed`; admin rejection from `pending`.
-10. **Soft deletion:** Should category deletion be blocked while it has active items, cascade-deactivate items, or allow hidden references? How long must user/order data be retained?
+10. **Soft deletion:** Approved: category deletion soft-deletes the category and deactivates its menu items. How long must user/order data be retained?
 11. **Auth revocation:** Approved revocation on logout/password change/block; proposed user token version invalidates all tokens for that user. Confirm if logout should revoke only the current token instead.
 
 ### Operational/API decisions

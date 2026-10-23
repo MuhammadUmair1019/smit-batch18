@@ -13,9 +13,11 @@ export const notFoundHandler: RequestHandler = (request, response) => {
 
 export const errorHandler: ErrorRequestHandler = (error: unknown, request, response, _next) => {
   const knownError = error instanceof AppError ? error : undefined;
-  const statusCode = knownError?.statusCode ?? 500;
-  const code = knownError?.code ?? 'INTERNAL_SERVER_ERROR';
-  const message = knownError?.message ?? 'An unexpected error occurred';
+  const mongoError = typeof error === 'object' && error !== null && 'code' in error && error.code === 11000;
+  const mongooseValidationError = typeof error === 'object' && error !== null && 'name' in error && error.name === 'ValidationError';
+  const statusCode = knownError?.statusCode ?? (mongoError ? 409 : mongooseValidationError ? 422 : 500);
+  const code = knownError?.code ?? (mongoError ? 'RESOURCE_CONFLICT' : mongooseValidationError ? 'VALIDATION_ERROR' : 'INTERNAL_SERVER_ERROR');
+  const message = knownError?.message ?? (mongoError ? 'A resource with those values already exists' : mongooseValidationError ? 'Request validation failed' : 'An unexpected error occurred');
 
   if (statusCode >= 500) {
     logger.error({ err: error, requestId: request.requestId }, 'Request failed');
